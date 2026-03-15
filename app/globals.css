@@ -1,8 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-sans:
+    "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
 }
 
 @theme inline {
@@ -10,6 +15,11 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+/* Override Swiper default theme color to white */
+:root {
+  --swiper-theme-color: #ffffff !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +33,35 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+/* Utility class to apply Playfair Display where needed */
+.playfair {
+  font-family: var(--font-heading) !important;
+}
+
+/* Custom Swiper Pagination Bullets */
+.swiper-pagination-bullet-custom {
+  width: 16px !important;
+  height: 16px !important;
+  background: transparent !important;
+  border: 2px solid white !important;
+  opacity: 0.6 !important;
+  padding: 3px !important;
+  margin: 0 6px !important;
+}
+
+.swiper-pagination-bullet-active-custom {
+  background: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  opacity: 1 !important;
 }
