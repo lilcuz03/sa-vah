@@ -3,6 +3,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, EffectFade } from "swiper/modules";
 import hero from "../assets/images/hero.png";
+import hero1 from "../assets/images/hero1.png";
+import hero3 from "../assets/images/hero3.png";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -18,12 +20,12 @@ const slides = [
   {
     title: "Natural Healing",
     description: "Restore balance and inner peace.",
-    image: hero,
+    image: hero1,
   },
   {
     title: "Personalized Care",
     description: "Wellness tailored just for you.",
-    image: hero,
+    image: hero3,
   },
 ];
 

@@ -118,7 +118,7 @@ const Home = () => {
                   src={blog.image}
                   alt={blog.title}
                   fill
-                  className="object-cover"
+                  className="object-cover object-top"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>

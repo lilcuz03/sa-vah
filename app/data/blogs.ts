@@ -24,7 +24,7 @@ export const blogs: BlogPost[] = [
     category: "Wellness",
     date: "March 15, 2026",
     readTime: "9 min read",
-    image: "/images/product-ashwagandha.jpg",
+    image: "/images/meditating.jpg",
     references: [
       {
         title: "Ashwagandha root extract improves resistance to stress",
