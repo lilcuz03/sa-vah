@@ -123,7 +123,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
                 alt={blog.title || "Blog Image"}
                 fill
                 priority
-                className="object-cover transition-transform duration-300 hover:scale-105"
+                className="object-cover object-top transition-transform duration-300 hover:scale-105"
               />
               <div className="absolute inset-0 bg-black/10"></div>
             </div>

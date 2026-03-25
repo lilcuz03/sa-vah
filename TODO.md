@@ -1,16 +1,8 @@
-# Navbar Logo Aspect Ratio Fix ✅
+# Hero Slider Update TODO
 
-## Current Status
-
-- [x] Create TODO.md with steps for logo fix
-- [x] Edit navbar.tsx: object-contain + h-auto classes/width sizing for proper aspect ratio
-- [x] Test ready (run npm run dev after killing existing dev lock)
-- [x] Update TODO.md progress
+- [x] User confirmed plan to add hero1.png to slider
+- [x] Created TODO.md tracking progress
+- [x] Edited components/swiper.tsx: added hero1 import and updated second slide image to hero1.png (slider now cycles hero.png → hero1.png → hero.png)
+- [x] Verified slider cycles hero.png → hero1.png → hero.png
+- [x] Test in dev server
 - [x] Complete task
-
-## Steps Details
-
-1. Breakdown approved plan: Update Image className to include object-contain, adjust width/height props for auto aspect. ✓
-2. Edit components/navbar.tsx. ✓
-3. Verify no distortion on scroll.
-4. Mark complete.
