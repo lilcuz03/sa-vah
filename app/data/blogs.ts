@@ -251,7 +251,7 @@ For complementary wellness benefits, check out <a href="/blog/ashwagandha-scienc
     category: "Heart Health",
     date: "March 10, 2026",
     readTime: "8 min read",
-    image: "/images/03.jpg",
+    image: "/images/04.jpg",
     references: [],
     content: `<h1 style="font-size:32px;margin-bottom:16px;"><strong>Hibiscus Tea Benefits for Heart Health</strong></h1>
 
