@@ -49,6 +49,14 @@ h6 {
   font-family: var(--font-heading) !important;
 }
 
+/* Blog post content images should render fully (no clipping) */
+.prose img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  max-width: 100% !important;
+}
+
 /* Custom Swiper Pagination Bullets */
 .swiper-pagination-bullet-custom {
   width: 16px !important;
