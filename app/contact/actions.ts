@@ -12,7 +12,7 @@ export interface ContactFormData {
 export async function sendContactEmail(formData: ContactFormData) {
   try {
     const response = await fetch(
-      "https://formspree.io/f/mpqozwkl?cc=tafadzwachiri03%40outlook.com&cc=info%40sahvehinvestment.co.za",
+      "https://formspree.io/f/mpqozwkl?cc=atafadzwachiri03%40gmail.com&cc=info%40sahvehinvestment.co.za",
       {
         method: "POST",
         headers: {
