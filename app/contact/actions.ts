@@ -11,20 +11,23 @@ export interface ContactFormData {
 
 export async function sendContactEmail(formData: ContactFormData) {
   try {
-    const response = await fetch("https://formspree.io/f/mpqozwkl", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      "https://formspree.io/f/mpqozwkl?cc=tafadzwachiri03%40outlook.com&cc=info%40sahvehinvestment.co.za",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone || "",
+          subject: formData.subject || "",
+          message: formData.message,
+        }),
       },
-      body: JSON.stringify({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone || "",
-        subject: formData.subject || "",
-        message: formData.message,
-      }),
-    });
+    );
 
     if (!response.ok) {
       throw new Error(`Formspree API error: ${response.status}`);
