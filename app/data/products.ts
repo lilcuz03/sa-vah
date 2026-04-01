@@ -19,7 +19,7 @@ export const products: Product[] = [
   {
     id: 1,
     name: "Aloe Colon Cleanse Granules",
-    price: 120.00,
+    price: 120.0,
     description: "Natural colon cleanse and digestive detox support",
     image: "aloe",
     details:
@@ -28,7 +28,7 @@ export const products: Product[] = [
   {
     id: 2,
     name: "Ashwagandha",
-    price: 90.00,
+    price: 90.0,
     description: "Stress relief and mental wellness support",
     image: "ashwagandha",
     details:
@@ -37,7 +37,7 @@ export const products: Product[] = [
   {
     id: 3,
     name: "Hibiscus Tea",
-    price: 70.00,
+    price: 70.0,
     description: "Heart health and blood pressure support",
     image: "hibiscus",
     details:
@@ -46,7 +46,7 @@ export const products: Product[] = [
   {
     id: 4,
     name: "Kombucha Gummies",
-    price: 80.00,
+    price: 80.0,
     description: "Probiotic gut health and digestion support",
     image: "kombucha",
     details:
@@ -55,7 +55,7 @@ export const products: Product[] = [
   {
     id: 5,
     name: "Moringa Raw & Organic",
-    price: 60.00,
+    price: 60.0,
     description: "Superfood nutrition and energy boost",
     image: "moringa",
     details:
@@ -64,7 +64,7 @@ export const products: Product[] = [
   {
     id: 6,
     name: "Ndolwani Gummies",
-    price: 120.00,
+    price: 120.0,
     description: "Relaxation and deep sleep support",
     image: "ndolwani",
     details:

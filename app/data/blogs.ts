@@ -24,7 +24,7 @@ export const blogs: BlogPost[] = [
     category: "Wellness",
     date: "March 15, 2026",
     readTime: "9 min read",
-    image: "/images/meditating.jpg",
+    image: "/images/01.jpg",
     references: [
       {
         title: "Ashwagandha root extract improves resistance to stress",
@@ -88,9 +88,9 @@ A randomized controlled trial found participants taking Ashwagandha root extract
 </p>
 
 <p>
-<a href="https://pubmed.ncbi.nlm.nih.gov/23439798/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Ashwagandha root extract improves resistance to stress
-</a>
+
 </p>
 
 <p>
@@ -98,9 +98,9 @@ Additional research confirms adaptogens like Ashwagandha enhance resilience to c
 </p>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3991026/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Adaptogens and their mechanisms of action
-</a>
+
 </p>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>Potential Benefits</strong></h2>
@@ -145,7 +145,7 @@ For broader wellness benefits, consider reading about <a href="/blog/moringa-ole
     category: "Superfoods",
     date: "March 12, 2026",
     readTime: "9 min read",
-    image: "/images/product-moringa.jpg",
+    image: "/images/02.jpg",
     references: [
       {
         title: "Nutritional Value of the Leaves of Moringa oleifera",
@@ -212,9 +212,9 @@ Clinical reviews report that Moringa supplementation improves micronutrient stat
 </p>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8375878/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Moringa oleifera: A review on nutritive importance and uses
-</a>
+
 </p>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>Incorporating Moringa into Daily Life</strong></h2>
@@ -251,9 +251,9 @@ For complementary wellness benefits, check out <a href="/blog/ashwagandha-scienc
     category: "Heart Health",
     date: "March 10, 2026",
     readTime: "8 min read",
-    image: "/images/product-hibiscus.jpg",
+    image: "/images/04.jpg",
     references: [],
-    content: `<h1 style="font-size:32px;margin-bottom:16px;"><strong>Holistic Immune System Optimization</strong></h1>
+    content: `<h1 style="font-size:32px;margin-bottom:16px;"><strong>Hibiscus Tea Benefits for Heart Health</strong></h1>
 
 <p>
 A strong immune system is essential for defending the body against infections, maintaining energy, and supporting overall health. However, modern lifestyle factors such as poor diet, stress, sleep deprivation, and environmental toxins can compromise immunity.
@@ -281,9 +281,9 @@ Supporting gut health includes:
 </ul>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4894526/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 The gut microbiome and immune system interactions
-</a>
+
 </p>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>Activating Innate Immunity</strong></h2>
@@ -317,9 +317,9 @@ Cytokines are signaling molecules that coordinate immune responses. Dysregulated
 </ul>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7152112/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Cytokine balance and immune regulation
-</a>
+
 </p>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>Daily Immune Optimization Protocol</strong></h2>
@@ -363,10 +363,10 @@ For complementary strategies, consider learning about <a href="/blog/ashwagandha
     category: "Digestive Health",
     date: "March 8, 2026",
     readTime: "7 min read",
-    image: "/images/product-aloe.jpg",
+    image: "/images/05.jpg",
     references: [],
     content: `
-<h1 style="font-size:32px;margin-bottom:16px;"><strong>Hibiscus Tea for Heart Health</strong></h1>
+<h1 style="font-size:32px;margin-bottom:16px;"><strong>Aloe Vera for Digestive Wellness</strong></h1>
 
 <p>
 Hibiscus sabdariffa, commonly consumed as a herbal tea, has been used for centuries in traditional medicine. Modern research increasingly supports its cardiovascular benefits, making it a natural option for heart health and wellness routines.
@@ -398,9 +398,9 @@ Clinical studies demonstrate measurable cardiovascular improvements with daily H
 </p>
 
 <p>
-<a href="https://pubmed.ncbi.nlm.nih.gov/20358384/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Effects of Hibiscus tea on blood pressure
-</a>
+
 </p>
 
 <p>
@@ -408,9 +408,9 @@ Additional studies confirm Hibiscus's ability to reduce LDL cholesterol, triglyc
 </p>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4446522/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Hibiscus sabdariffa and cardiovascular health
-</a>
+
 </p>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>How to Prepare Hibiscus Tea</strong></h2>
@@ -467,10 +467,10 @@ For complementary wellness strategies, consider <a href="/blog/moringa-oleifera-
     category: "Gut Health",
     date: "March 6, 2026",
     readTime: "8 min read",
-    image: "/images/product-kombucha.jpg",
+    image: "/images/06.jpg",
     references: [],
     content: `
-<h1 style="font-size:32px;margin-bottom:16px;"><strong>Kombucha: Fermented Tea for Digestive and Immune Support</strong></h1>
+<h1 style="font-size:32px;margin-bottom:16px;"><strong>Kombucha Probiotics Guide</strong></h1>
 
 <p>
 Kombucha is a traditional fermented tea that has been consumed for centuries for its purported health benefits. Made from sweetened tea and a symbiotic culture of bacteria and yeast (SCOBY), Kombucha undergoes fermentation, producing probiotics, organic acids, and antioxidants.
@@ -504,9 +504,9 @@ Studies suggest that Kombucha may modulate gut microbiota and support immune fun
 </p>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4696435/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Kombucha Tea: Microbiology, Composition, and Health Benefits
-</a>
+
 </p>
 
 <p>
@@ -563,10 +563,10 @@ Learn more about <a href="/blog/moringa-oleifera-nutrient-dense" style="color:#1
     category: "Sleep",
     date: "March 4, 2026",
     readTime: "7 min read",
-    image: "/images/product-ndolwani.jpg",
+    image: "/images/07.jpg",
     references: [],
     content: `
-<h1 style="font-size:32px;margin-bottom:16px;"><strong>Adaptogens for Energy, Focus, and Resilience</strong></h1>
+<h1 style="font-size:32px;margin-bottom:16px;"><strong>Ndolwani Traditional Sleep Remedy</strong></h1>
 
 <p>
 Modern life can leave us feeling constantly drained, stressed, and mentally foggy. Adaptogens are a unique group of herbs that help the body resist stress, improve energy metabolism, and maintain mental clarity.
@@ -597,7 +597,7 @@ These herbs work by balancing the <strong>hypothalamic-pituitary-adrenal (HPA) a
 <ul>
 <li>Supports energy and physical stamina</li>
 <li>May improve cognition and concentration</li>
-<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3659618/" target="_blank" style="color:#16a34a;font-weight:500;">Panax Ginseng for fatigue management</a></li>
+<li>Panax Ginseng for fatigue management</li>
 </ul>
 
 <h3 style="font-size:20px;margin-top:20px;margin-bottom:8px;"><strong>Ashwagandha</strong></h3>
@@ -616,9 +616,9 @@ Multiple clinical trials confirm adaptogens can improve resilience to stress, re
 </p>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3991026/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Adaptogens in mental and physical performance
-</a>
+
 </p>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>How to Integrate Adaptogens</strong></h2>
@@ -643,7 +643,7 @@ Adaptogens provide natural support for energy, mental clarity, and resilience. R
 </p>
 
 <p>
-You may also enjoy learning about <a href="/blog/moringa-oleifera-nutrient-dense" style="color:#16a34a;font-weight:500;">Moringa for nutrient support</a> or <a href="/blog/kombucha-gut-health" style="color:#16a34a;font-weight:500;">Kombucha for gut health</a>.
+You may also enjoy learning about <a href="/blog/moringa-oleifera-nutrient-dense" style="color:#16a34a;font-weight:500;">Moringa for nutrient support</a> or <a href="/blog/kombucha-probiotics-guide" style="color:#16a34a;font-weight:500;">Kombucha for gut health</a>.
 </p>
 `,
   },
@@ -656,10 +656,10 @@ You may also enjoy learning about <a href="/blog/moringa-oleifera-nutrient-dense
     category: "Superfoods",
     date: "March 2, 2026",
     readTime: "7 min read",
-    image: "/images/product-ashwagandha.jpg",
+    image: "/images/08.jpg",
     references: [],
     content: `
-<h1 style="font-size:32px;margin-bottom:16px;"><strong>Sleep Optimization with Natural Herbs</strong></h1>
+<h1 style="font-size:32px;margin-bottom:16px;"><strong>Superfood Combinations for Daily Wellness</strong></h1>
 
 <p>
 Sleep is a critical component of overall health. Unfortunately, modern lifestyles, stress, and digital exposure often disrupt sleep quality, leaving many individuals fatigued, irritable, or less productive.
@@ -682,7 +682,7 @@ Several natural herbs have been used for centuries to promote relaxation, reduce
 <ul>
 <li>Commonly used for insomnia and mild sleep disturbances</li>
 <li>May increase GABA availability in the brain, promoting calmness</li>
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/22508205/" target="_blank" style="color:#16a34a;font-weight:500;">Clinical studies on Valerian root and sleep</a></li>
+<li>Clinical studies on Valerian root and sleep</li>
 </ul>
 
 <h3 style="font-size:20px;margin-top:20px;margin-bottom:8px;"><strong>Chamomile</strong></h3>
@@ -690,7 +690,7 @@ Several natural herbs have been used for centuries to promote relaxation, reduce
 <ul>
 <li>Acts as a mild sedative and relaxant</li>
 <li>Improves overall sleep quality and reduces nighttime awakenings</li>
-<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2995283/" target="_blank" style="color:#16a34a;font-weight:500;">Chamomile extract enhances sleep quality</a></li>
+<li>Chamomile extract enhances sleep quality</li>
 </ul>
 
 <h3 style="font-size:20px;margin-top:20px;margin-bottom:8px;"><strong>Ashwagandha</strong></h3>
@@ -698,7 +698,7 @@ Several natural herbs have been used for centuries to promote relaxation, reduce
 <ul>
 <li>Supports stress reduction, indirectly improving sleep quality</li>
 <li>KSM-66 extract has shown improvements in sleep latency and efficiency</li>
-<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6750290/" target="_blank" style="color:#16a34a;font-weight:500;">Ashwagandha and sleep improvement study</a></li>
+<li>Ashwagandha and sleep improvement study</li>
 </ul>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>Integrating Herbs into Your Routine</strong></h2>
@@ -735,10 +735,10 @@ For complementary support, check out <a href="/blog/adaptogens-energy-vitality" 
     category: "Wellness",
     date: "February 28, 2026",
     readTime: "8 min read",
-    image: "/images/product-moringa.jpg",
+    image: "/images/09.jpg",
     references: [],
     content: `
-<h1 style="font-size:32px;margin-bottom:16px;"><strong>Detoxification and Liver Health with Herbs</strong></h1>
+<h1 style="font-size:32px;margin-bottom:16px;"><strong>Stress Management Through Herbal Protocols</strong></h1>
 
 <p>
 The liver is a vital organ responsible for processing nutrients, detoxifying harmful substances, and supporting overall metabolic health. Modern diets, environmental toxins, alcohol, and stress can challenge liver function over time.
@@ -769,7 +769,7 @@ Several herbs have been traditionally used to support liver detoxification, enha
 <ul>
 <li>Traditionally used to support bile production and liver detoxification</li>
 <li>May reduce liver enzyme markers associated with damage</li>
-<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4848652/" target="_blank" style="color:#16a34a;font-weight:500;">Dandelion root as a detoxifying agent</a></li>
+<li>Dandelion root as a detoxifying agent</li>
 </ul>
 
 <h3 style="font-size:20px;margin-top:20px;margin-bottom:8px;"><strong>Turmeric (Curcuma longa)</strong></h3>
@@ -777,7 +777,7 @@ Several herbs have been traditionally used to support liver detoxification, enha
 <ul>
 <li>Contains curcumin, an anti-inflammatory and antioxidant compound</li>
 <li>Supports liver detoxification pathways and reduces oxidative stress</li>
-<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5664031/" target="_blank" style="color:#16a34a;font-weight:500;">Turmeric and liver health</a></li>
+<li>Turmeric and liver health</li>
 </ul>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>Daily Integration</strong></h2>
@@ -814,10 +814,10 @@ For further holistic wellness, explore <a href="/blog/ashwagandha-science-of-str
     category: "Health",
     date: "February 25, 2026",
     readTime: "7 min read",
-    image: "/images/product-hibiscus.jpg",
+    image: "/images/10.jpg",
     references: [],
     content: `
-<h1 style="font-size:32px;margin-bottom:16px;"><strong>Adaptogens for Energy and Vitality: Boosting Resilience Naturally</strong></h1>
+<h1 style="font-size:32px;margin-bottom:16px;"><strong>Immune Boosting Superfoods</strong></h1>
 
 <p>
 Adaptogens are a class of herbs known for supporting the body's natural ability to cope with stress while enhancing energy, endurance, and mental performance. They work by balancing hormonal and neurological pathways to maintain homeostasis during physical or mental stress.
@@ -836,7 +836,7 @@ Fatigue can stem from lifestyle factors such as irregular sleep, poor nutrition,
 <ul>
 <li>Enhances endurance and reduces perceived fatigue</li>
 <li>Supports neurotransmitter balance, improving mental clarity</li>
-<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5370383/" target="_blank" style="color:#16a34a;font-weight:500;">Rhodiola for fatigue and mental performance</a></li>
+<li>Rhodiola for fatigue and mental performance</li>
 </ul>
 
 <h3 style="font-size:20px;margin-top:20px;margin-bottom:8px;"><strong>Eleuthero (Siberian Ginseng)</strong></h3>
@@ -844,7 +844,7 @@ Fatigue can stem from lifestyle factors such as irregular sleep, poor nutrition,
 <ul>
 <li>Improves physical performance and reduces recovery time</li>
 <li>Supports immune system resilience under stress</li>
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/20415522/" target="_blank" style="color:#16a34a;font-weight:500;">Eleuthero and physical endurance</a></li>
+<li>Eleuthero and physical endurance</li>
 </ul>
 
 <h3 style="font-size:20px;margin-top:20px;margin-bottom:8px;"><strong>Ashwagandha</strong></h3>
@@ -852,7 +852,7 @@ Fatigue can stem from lifestyle factors such as irregular sleep, poor nutrition,
 <ul>
 <li>Supports cortisol regulation and reduces stress-related fatigue</li>
 <li>Enhances mental focus and physical endurance</li>
-<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3991026/" target="_blank" style="color:#16a34a;font-weight:500;">Adaptogens in modern medicine</a></li>
+<li>Adaptogens in modern medicine</li>
 </ul>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>Daily Usage Tips</strong></h2>
@@ -889,10 +889,10 @@ For more insights, explore <a href="/blog/ashwagandha-science-of-stress-reductio
     category: "Digestive Health",
     date: "February 20, 2026",
     readTime: "8 min read",
-    image: "/images/product-aloe.jpg",
+    image: "/images/11.jpg",
     references: [],
     content: `
-<h1 style="font-size:32px;margin-bottom:16px;"><strong>Sleep Support and Circadian Rhythm: Natural Ways to Enhance Rest</strong></h1>
+<h1 style="font-size:32px;margin-bottom:16px;"><strong>Digestive Health with Natural Remedies</strong></h1>
 
 <p>
 Sleep is a critical pillar of health, yet modern lifestyles often disrupt natural patterns. Factors such as stress, artificial light, irregular schedules, and caffeine intake can interfere with circadian rhythms, reducing sleep quality and impacting energy, mood, and immunity.
@@ -924,7 +924,7 @@ Disruption can lead to insomnia, daytime fatigue, and increased risk of chronic 
 <li><strong>Magnesium:</strong> Supports relaxation and sleep onset</li>
 <li><strong>Valerian Root:</strong> May reduce time to fall asleep</li>
 <li><strong>Chamomile Tea:</strong> Mild sedative and calming effect</li>
-<li><strong>Melatonin:</strong> Can help reset sleep cycles in specific cases <a href="https://pubmed.ncbi.nlm.nih.gov/30531230/" target="_blank" style="color:#16a34a;font-weight:500;">(Melatonin supplementation for sleep disorders)</a></li>
+<li><strong>Melatonin:</strong> Can help reset sleep cycles in specific cases (Melatonin supplementation for sleep disorders)</li>
 <li><strong>L-Theanine:</strong> Promotes relaxation without sedation</li>
 </ul>
 
@@ -944,15 +944,15 @@ Studies show that combining lifestyle adjustments with natural interventions can
 </p>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5332158/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Circadian Rhythms and Sleep
-</a>
+
 </p>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6118242/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Herbal interventions for sleep improvement
-</a>
+
 </p>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>Precautions</strong></h2>
@@ -980,10 +980,10 @@ Learn more about natural wellness supplements by exploring <a href="/blog/ashwag
     category: "Heart Health",
     date: "February 15, 2026",
     readTime: "7 min read",
-    image: "/images/product-kombucha.jpg",
+    image: "/images/12.jpg",
     references: [],
     content: `
-<h1 style="font-size:32px;margin-bottom:16px;"><strong>Detox and Liver Health: Supporting Your Body’s Natural Cleansing</strong></h1>
+<h1 style="font-size:32px;margin-bottom:16px;"><strong>Heart Health with Plant-Based Solutions</strong></h1>
 
 <p>
 The liver is the body’s primary detoxification organ, processing waste, environmental toxins, and metabolic byproducts. Supporting liver health is essential for energy, digestion, and overall metabolic balance.
@@ -1009,7 +1009,7 @@ A compromised liver can lead to toxin buildup, sluggish metabolism, poor digesti
 <h3 style="font-size:20px;margin-top:20px;margin-bottom:8px;"><strong>Herbal Support</strong></h3>
 
 <ul>
-<li><strong>Milk Thistle (Silybum marianum):</strong> Enhances detoxification and supports liver cell regeneration <a href="https://pubmed.ncbi.nlm.nih.gov/30833657/" target="_blank" style="color:#16a34a;font-weight:500;">(Herbal support for liver health)</a></li>
+<li><strong>Milk Thistle (Silybum marianum):</strong> Enhances detoxification and supports liver cell regeneration (Herbal support for liver health)</li>
 <li><strong>Artichoke Extract:</strong> Supports bile flow and liver metabolism</li>
 <li><strong>Dandelion Root:</strong> Promotes natural cleansing and digestion</li>
 </ul>
@@ -1030,15 +1030,15 @@ Research highlights the liver’s ability to detoxify naturally and the benefits
 </p>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473052/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Role of the liver in detoxification
-</a>
+
 </p>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5641912/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Nutritional interventions for liver protection
-</a>
+
 </p>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>Precautions</strong></h2>
@@ -1054,7 +1054,7 @@ Supporting liver health through nutrition, herbs, and lifestyle practices can en
 </p>
 
 <p>
-For a holistic wellness approach, also explore <a href="/blog/sleep-support-circadian-rhythm" style="color:#16a34a;font-weight:500;">sleep support strategies</a> and <a href="/blog/ashwagandha-science-of-stress-reduction" style="color:#16a34a;font-weight:500;">Ashwagandha for stress management</a>.
+For a holistic wellness approach, also explore <a href="/blog/ndolwani-sleep-remedy" style="color:#16a34a;font-weight:500;">sleep support strategies</a> and <a href="/blog/ashwagandha-science-of-stress-reduction" style="color:#16a34a;font-weight:500;">Ashwagandha for stress management</a>.
 </p>
 `,
   },
@@ -1066,10 +1066,10 @@ For a holistic wellness approach, also explore <a href="/blog/sleep-support-circ
     category: "Wellness",
     date: "February 10, 2026",
     readTime: "8 min read",
-    image: "/images/product-ndolwani.jpg",
+    image: "/images/14.jpg",
     references: [],
     content: `
-<h1 style="font-size:32px;margin-bottom:16px;"><strong>Bioavailability and Nutrient Absorption: Maximizing the Benefits of Your Supplements</strong></h1>
+<h1 style="font-size:32px;margin-bottom:16px;"><strong>Energy and Vitality Protocol</strong></h1>
 
 <p>
 When it comes to vitamins, minerals, and herbal compounds, the amount you ingest is only part of the equation. <strong>Bioavailability</strong> refers to the proportion of nutrients that are absorbed and utilized by the body. High-quality supplements may be wasted if your body cannot effectively absorb them.
@@ -1124,9 +1124,9 @@ Studies have consistently shown that nutrient form, dietary context, and co-fact
 </p>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4482448/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Bioavailability of vitamins and minerals
-</a>
+
 </p>
 
 <p>
@@ -1136,9 +1136,9 @@ Enhancing absorption of nutrients
 </p>
 
 <p>
-<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6073406/" target="_blank" style="color:#16a34a;font-weight:500;">
+
 Factors influencing bioavailability of supplements
-</a>
+
 </p>
 
 <h2 style="font-size:26px;margin-top:28px;margin-bottom:12px;"><strong>Conclusion</strong></h2>

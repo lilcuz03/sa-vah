@@ -117,15 +117,15 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <div className="relative h-64 md:h-96 rounded-lg mb-12 overflow-hidden">
+            <div className="relative w-full mb-12 overflow-hidden rounded-lg h-96 md:h-[520px] lg:h-[620px] bg-gray-100">
               <Image
                 src={blog.image}
                 alt={blog.title || "Blog Image"}
                 fill
                 priority
-                className="object-cover object-top transition-transform duration-300 hover:scale-105"
+                className="object-cover object-center transition-transform duration-300 hover:scale-105"
+                sizes="100vw"
               />
-              <div className="absolute inset-0 bg-black/10"></div>
             </div>
 
             {/* Excerpt */}
