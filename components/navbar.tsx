@@ -57,8 +57,8 @@ const NavBar = () => {
                   alt="Sah Veh Logo"
                   fill
                   priority
-                  sizes="cover"
-                  className="object-contain hover:opacity-80    transition-all duration-300"
+                  sizes="100vw"
+                  className="object-contain hover:opacity-80 transition-all duration-300"
                 />
               </div>
             </Link>

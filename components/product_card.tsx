@@ -3,14 +3,12 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { StaticImageData } from "next/image";
-
 interface ProductCardProps {
   id: number;
   name: string;
   price: number;
   description: string;
-  image: string | StaticImageData;
+  image: string;
 }
 
 // WhatsApp phone number (NO + sign)

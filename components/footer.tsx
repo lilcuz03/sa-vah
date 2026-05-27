@@ -197,7 +197,7 @@ const Footer = () => {
           <p className="text-white/60 text-sm">
             © {currentYear} Sah Veh. All rights reserved. Developed by{" "}
             <a
-              href="https://ttfrech.co.za/tafadzwa/"
+              href="https://tafadzwa.site/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-green-300 hover:text-white underline"

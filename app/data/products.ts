@@ -1,10 +1,15 @@
-import { StaticImageData } from "next/image";
-import ashwagandha from "../../assets/images/product-ashwagandha.jpg";
-import hibiscus from "../../assets/images/product-hibiscus.jpg";
-import kombucha from "../../assets/images/product-kombucha.jpg";
-import moringa from "../../assets/images/product-moringa.jpg";
-import ndolwani from "../../assets/images/product-ndolwani.jpg";
-import aloe from "../../assets/images/product-aloe.jpg";
+// Removed broken asset imports - using public paths
+export const getProductImage = (imageName: string): string => {
+  const imageMap: Record<string, string> = {
+    aloe: "/images/product-aloe.jpg",
+    ashwagandha: "/images/product-ashwagandha.jpg",
+    hibiscus: "/images/product-hibiscus.jpg",
+    kombucha: "/images/product-kombucha.jpg",
+    moringa: "/images/product-moringa.jpg",
+    ndolwani: "/images/product-ndolwani.png",
+  };
+  return imageMap[imageName] || "/images/product-aloe.jpg";
+};
 
 export interface Product {
   id: number;
@@ -71,18 +76,6 @@ export const products: Product[] = [
       "Premium sleep support gummies formulated to help you relax and achieve restful sleep. Contains natural ingredients that promote relaxation, reduce stress, and support healthy sleep patterns. Wake up feeling refreshed and energized with these calming sleep gummies.",
   },
 ];
-
-export const getProductImage = (imageName: string): StaticImageData => {
-  const imageMap: Record<string, StaticImageData> = {
-    aloe,
-    ashwagandha,
-    hibiscus,
-    kombucha,
-    moringa,
-    ndolwani,
-  };
-  return imageMap[imageName] || aloe;
-};
 
 export const getProductById = (id: number): Product | undefined => {
   return products.find((p) => p.id === id);
