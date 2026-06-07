@@ -3,9 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, EffectFade } from "swiper/modules";
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
+
 import Image from "next/image";
 
 const slides = [
@@ -28,7 +26,7 @@ const slides = [
 
 export default function HeroSlider() {
   return (
-    <div className="w-full h-[60vh] md:h-screen">
+    <div className="w-full h-[60vh] md:h-screen opacity-50">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         autoplay={{ delay: 4000, disableOnInteraction: false }}

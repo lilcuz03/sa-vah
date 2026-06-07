@@ -38,6 +38,12 @@ const NavBar = () => {
               Home
             </Link>
             <Link
+              href="/about"
+              className="text-gray-700 hover:text-green-600 font-medium transition-colors px-3 py-2 text-sm"
+            >
+              About
+            </Link>
+            <Link
               href="/products"
               className="text-gray-700 hover:text-green-600 font-medium transition-colors px-3 py-2 text-sm"
             >
@@ -45,22 +51,12 @@ const NavBar = () => {
             </Link>
             <Link
               href="/blog"
-              className="text-gray-700 hover:text-green-600 font-medium transition-colors px-3 py-2 text-sm"
+              className="text-gray-700  hover:text-green-600 font-medium transition-colors px-3 py-2 text-sm"
             >
               Blog
             </Link>
-            <Link
-              href="/about"
-              className="text-gray-700 hover:text-green-600 font-medium transition-colors px-3 py-2 text-sm"
-            >
-              About
-            </Link>
-            <Link
-              href="/contact"
-              className="text-gray-700 hover:text-green-600 font-medium transition-colors px-3 py-2 text-sm"
-            >
-              Contact
-            </Link>
+
+            
           </div>
 
           {/* Mobile menu button */}
