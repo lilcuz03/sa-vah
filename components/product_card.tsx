@@ -3,28 +3,20 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { StaticImageData } from "next/image";
+import type { Product } from "@/lib/products";
 
 interface ProductCardProps {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  image: string | StaticImageData;
+  product: Product;
 }
 
 // WhatsApp phone number (NO + sign)
 const WHATSAPP_NUMBER = "27827642367";
 
 const ProductCard = ({
-  id,
-  name,
-  price,
-  description,
-  image,
+  product
 }: ProductCardProps) => {
   const message = encodeURIComponent(
-    `Hi, I'm interested in the product: ${name} (R${price.toFixed(
+    `Hi, I'm interested in the product: ${name} (R${product.price.toFixed(
       2,
     )}). Is it available?`,
   );
@@ -35,12 +27,12 @@ const ProductCard = ({
     <div className="w-full max-w-sm bg-white border rounded-md shadow hover:shadow-lg transition-all duration-200 transform hover:scale-105 group">
       {/* Product Image */}
       <Link
-        href={`/product/${id}`}
+        href={`/product/${product.slug}`}
         className="block h-48 relative"
       >
         <Image
-          src={image}
-          alt={name}
+          src={product.image}
+          alt={product.name}
           fill
           className="object-cover rounded-t-md"
         />
@@ -48,12 +40,12 @@ const ProductCard = ({
 
       {/* Product Info */}
       <div className="p-4 text-center">
-        <h3 className="text-lg font-semibold text-gray-900">{name}</h3>
+        <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
 
-        <p className="text-sm text-gray-600 mt-1">{description}</p>
+        <p className="text-sm text-gray-600 mt-1">{product.description}</p>
 
         <p className="text-xl font-bold text-green-600 mt-2">
-          R{price.toFixed(2)}
+          R{product.price.toFixed(2)}
         </p>
 
         {/* WhatsApp Buy Button */}

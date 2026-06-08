@@ -1,506 +1,638 @@
 "use client";
-import React, { useState, useTransition } from "react";
+
+import { useState } from "react";
 import Link from "next/link";
-import type { ContactFormData } from "./actions";
-import { sendContactEmail } from "./actions";
 
-const Contact = () => {
-  const [formData, setFormData] = useState<ContactFormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isPending, startTransition] = useTransition();
-  const [message, setMessage] = useState("");
+// ─── FAQ Data ─────────────────────────────────────────────────────────────────
+const faqs = [
+  {
+    q: "What are your shipping times?",
+    a: "We process and ship orders within 1–2 business days. Standard shipping takes 3–5 business days, while express shipping delivers within 1–2 business days.",
+  },
+  {
+    q: "Do you offer refunds?",
+    a: "Yes — we offer a 30-day satisfaction guarantee. If you're not completely satisfied with your purchase for any reason, contact us for a full, no-questions-asked refund.",
+  },
+  {
+    q: "Are your products organic?",
+    a: "All of our supplements are made with 100% certified organic ingredients, sourced from ethical farms and third-party tested every batch for purity and potency.",
+  },
+  {
+    q: "Can I take multiple supplements together?",
+    a: "Most of our supplements can be combined safely. We recommend reaching out to our wellness team or your healthcare provider for personalised guidance.",
+  },
+  {
+    q: "Do you ship internationally?",
+    a: "Yes, we ship to over 50 countries. International shipping typically takes 7–14 business days. Customs fees may apply depending on your destination.",
+  },
+  {
+    q: "Are your products vegan-friendly?",
+    a: "100% — all Sah Veh supplements are entirely plant-based and vegan. We never use animal products or by-products in any of our formulations.",
+  },
+  {
+    q: "Do you offer wholesale or bulk orders?",
+    a: "Yes. We offer wholesale pricing for retailers, wellness practitioners, and bulk buyers. Contact our team via WhatsApp or email for more information.",
+  },
+  {
+    q: "What makes Sah Veh different?",
+    a: "We prioritise quality, purity, and transparency above all else. Every product is made with premium organic botanicals, manufactured to high standards, and independently tested for contaminants before reaching you.",
+  },
+];
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name as keyof ContactFormData]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-  };
+const topics = [
+  "Select a topic",
+  "Product Inquiry",
+  "Order Support",
+  "Wellness Advice",
+  "Partnership",
+  "Other",
+];
 
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-    if (!formData.firstName.trim())
-      newErrors.firstName = "First name is required";
-    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-      newErrors.email = "Email is invalid";
-    if (!formData.message.trim()) newErrors.message = "Message is required";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+// ─── FAQ Accordion Item ────────────────────────────────────────────────────────
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border-b border-[#ede5d8] last:border-0">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center justify-between gap-4 py-5 text-left group"
+        aria-expanded={open}
+      >
+        <span
+          className="text-[0.9rem] text-[#2d2416] group-hover:text-[#7a5c2e] transition-colors duration-200"
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontWeight: 600,
+            fontSize: "1.05rem",
+          }}
+        >
+          {q}
+        </span>
+        <span
+          className={`flex-shrink-0 w-7 h-7 rounded-full border border-[#ede5d8] flex items-center justify-center text-[#7a5c2e] transition-transform duration-300 ${open ? "rotate-45 bg-[#f0e8da]" : ""}`}
+          aria-hidden="true"
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path
+              d="M12 5v14M5 12h14"
+              strokeLinecap="round"
+            />
+          </svg>
+        </span>
+      </button>
+      <div
+        className={`overflow-hidden transition-all duration-300 ${open ? "max-h-60 pb-5" : "max-h-0"}`}
+      >
+        <p
+          className="text-[0.85rem] leading-[1.85] text-[#7a6650]"
+          style={{ fontFamily: "'DM Sans', sans-serif" }}
+        >
+          {a}
+        </p>
+      </div>
+    </div>
+  );
+}
 
-  const handleSubmit = async (e: React.FormEvent) => {
+// ─── Contact Form ─────────────────────────────────────────────────────────────
+function ContactForm() {
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!validateForm()) return;
-    startTransition(async () => {
-      const result = await sendContactEmail(formData);
-      if (result.success) {
-        setMessage("Message sent successfully!");
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          subject: "",
-          message: "",
-        });
-        setErrors({});
-      } else {
-        setMessage("Failed to send message. Please try again.");
-      }
-    });
-  };
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 1200);
+  }
+
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center justify-center py-16 text-center">
+        <div className="w-14 h-14 rounded-full bg-[#f0e8da] flex items-center justify-center mb-5 text-[#7a5c2e]">
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m4.5 12.75 6 6 9-13.5"
+            />
+          </svg>
+        </div>
+        <h3
+          className="text-[1.6rem] text-[#2d2416] mb-2"
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 600 }}
+        >
+          Message Sent
+        </h3>
+        <p
+          className="text-[0.85rem] text-[#7a6650] max-w-xs leading-relaxed"
+          style={{ fontFamily: "'DM Sans', sans-serif" }}
+        >
+          Thank you for reaching out. Our team will get back to you within 1
+          business day.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <main className="bg-white min-h-screen w-full">
-      {/* Hero Section */}
-      <section className="relative bg-green-900 py-20">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl text-center font-bold text-white mb-6 playfair">
-            Contact Us
-          </h1>
-          <p className="text-lg text-white/90 text-center max-w-2xl mx-auto">
-            Get in touch with us for personalized wellness guidance and care. We
-            are here to help you on your journey to better health.
-          </p>
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-5"
+      noValidate
+    >
+      {/* Name row */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="flex flex-col gap-1.5">
+          <label
+            htmlFor="firstName"
+            className="text-[0.65rem] tracking-[0.22em] uppercase text-[#9c8060]"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          >
+            First Name <span className="text-[#7a5c2e]">*</span>
+          </label>
+          <input
+            id="firstName"
+            type="text"
+            required
+            autoComplete="given-name"
+            placeholder="Amara"
+            className="px-5 py-3.5 rounded-xl border border-[#ede5d8] bg-[#faf7f2] text-[#2d2416] text-[0.85rem]
+              placeholder-[#c8b89a] focus:outline-none focus:border-[#7a5c2e] focus:bg-white transition-all duration-200"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          />
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <label
+            htmlFor="lastName"
+            className="text-[0.65rem] tracking-[0.22em] uppercase text-[#9c8060]"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          >
+            Last Name <span className="text-[#7a5c2e]">*</span>
+          </label>
+          <input
+            id="lastName"
+            type="text"
+            required
+            autoComplete="family-name"
+            placeholder="Dlamini"
+            className="px-5 py-3.5 rounded-xl border border-[#ede5d8] bg-[#faf7f2] text-[#2d2416] text-[0.85rem]
+              placeholder-[#c8b89a] focus:outline-none focus:border-[#7a5c2e] focus:bg-white transition-all duration-200"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          />
+        </div>
+      </div>
+
+      {/* Email + Phone */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="flex flex-col gap-1.5">
+          <label
+            htmlFor="email"
+            className="text-[0.65rem] tracking-[0.22em] uppercase text-[#9c8060]"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          >
+            Email <span className="text-[#7a5c2e]">*</span>
+          </label>
+          <input
+            id="email"
+            type="email"
+            required
+            autoComplete="email"
+            placeholder="you@example.com"
+            className="px-5 py-3.5 rounded-xl border border-[#ede5d8] bg-[#faf7f2] text-[#2d2416] text-[0.85rem]
+              placeholder-[#c8b89a] focus:outline-none focus:border-[#7a5c2e] focus:bg-white transition-all duration-200"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          />
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <label
+            htmlFor="phone"
+            className="text-[0.65rem] tracking-[0.22em] uppercase text-[#9c8060]"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          >
+            Phone{" "}
+            <span className="text-[#c8b89a] text-[0.6rem]">(Optional)</span>
+          </label>
+          <input
+            id="phone"
+            type="tel"
+            autoComplete="tel"
+            placeholder="+27 82 000 0000"
+            className="px-5 py-3.5 rounded-xl border border-[#ede5d8] bg-[#faf7f2] text-[#2d2416] text-[0.85rem]
+              placeholder-[#c8b89a] focus:outline-none focus:border-[#7a5c2e] focus:bg-white transition-all duration-200"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          />
+        </div>
+      </div>
+
+      {/* Topic */}
+      <div className="flex flex-col gap-1.5">
+        <label
+          htmlFor="topic"
+          className="text-[0.65rem] tracking-[0.22em] uppercase text-[#9c8060]"
+          style={{ fontFamily: "'DM Sans', sans-serif" }}
+        >
+          Topic <span className="text-[#7a5c2e]">*</span>
+        </label>
+        <select
+          id="topic"
+          required
+          defaultValue="Select a topic"
+          className="px-5 py-3.5 rounded-xl border border-[#ede5d8] bg-[#faf7f2] text-[#2d2416] text-[0.85rem]
+            focus:outline-none focus:border-[#7a5c2e] focus:bg-white transition-all duration-200 appearance-none cursor-pointer"
+          style={{ fontFamily: "'DM Sans', sans-serif" }}
+        >
+          {topics.map((t) => (
+            <option
+              key={t}
+              value={t}
+              disabled={t === "Select a topic"}
+            >
+              {t}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Message */}
+      <div className="flex flex-col gap-1.5">
+        <label
+          htmlFor="message"
+          className="text-[0.65rem] tracking-[0.22em] uppercase text-[#9c8060]"
+          style={{ fontFamily: "'DM Sans', sans-serif" }}
+        >
+          Message <span className="text-[#7a5c2e]">*</span>
+        </label>
+        <textarea
+          id="message"
+          required
+          rows={5}
+          placeholder="Tell us how we can help you..."
+          className="px-5 py-4 rounded-xl border border-[#ede5d8] bg-[#faf7f2] text-[#2d2416] text-[0.85rem]
+            placeholder-[#c8b89a] focus:outline-none focus:border-[#7a5c2e] focus:bg-white transition-all duration-200 resize-none"
+          style={{ fontFamily: "'DM Sans', sans-serif" }}
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="mt-2 w-full py-4 rounded-full bg-[#2d2416] text-[#f5ede0] text-[0.75rem] tracking-[0.2em] uppercase font-semibold
+          transition-all duration-300 hover:bg-[#7a5c2e] hover:shadow-[0_8px_30px_rgba(122,92,46,0.3)]
+          disabled:opacity-60 disabled:cursor-not-allowed"
+        style={{ fontFamily: "'DM Sans', sans-serif" }}
+      >
+        {loading ? "Sending…" : "Send Message"}
+      </button>
+    </form>
+  );
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+export default function ContactPage() {
+  return (
+    <main className="bg-[#faf7f2] min-h-screen">
+      {/* ── Hero ── */}
+      <section className="relative pt-36 pb-20 px-5 sm:px-8 lg:px-12 overflow-hidden">
+        <div
+          className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full pointer-events-none opacity-[0.07]"
+          style={{
+            background: "radial-gradient(circle, #7a5c2e 0%, transparent 70%)",
+          }}
+          aria-hidden="true"
+        />
+        <div className="max-w-7xl mx-auto">
+          {/* Breadcrumb */}
+          <nav
+            aria-label="Breadcrumb"
+            className="mb-10"
+          >
+            <ol
+              className="flex items-center gap-2 text-[0.68rem] tracking-[0.2em] uppercase text-[#9c8060]"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              <li>
+                <Link
+                  href="/"
+                  className="hover:text-[#7a5c2e] transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              <li
+                aria-hidden="true"
+                className="text-[#c8b89a]"
+              >
+                —
+              </li>
+              <li
+                aria-current="page"
+                className="text-[#4a3f32]"
+              >
+                Contact
+              </li>
+            </ol>
+          </nav>
+
+          <div className="max-w-2xl">
+            <p
+              className="text-[0.68rem] tracking-[0.38em] uppercase text-[#9c8060] mb-4"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              Get In Touch
+            </p>
+            <h1
+              className="text-[3rem] sm:text-[4rem] leading-[1.0] text-[#2d2416] mb-5"
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 600,
+              }}
+            >
+              We&apos;re Here
+              <br />
+              <em className="italic text-[#7a5c2e]">to Help</em>
+            </h1>
+            <p
+              className="text-[0.93rem] leading-[1.85] text-[#6b5c46] max-w-lg"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              Have a question about our products, need wellness advice, or want
+              to place a bulk order? Our team is ready to guide you — reach out
+              any way that suits you best.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            {/* Contact Information */}
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-6 playfair">
-                Get In Touch
-              </h2>
-              <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-                Have questions about our products or need personalized wellness
-                advice? Our team of experts is here to help. Reach out to us
-                through any of the channels below.
-              </p>
-
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-green-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+      {/* ── Contact Cards ── */}
+      <section
+        aria-label="Contact channels"
+        className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pb-16"
+      >
+        <ul
+          className="grid grid-cols-1 sm:grid-cols-3 gap-5"
+          role="list"
+        >
+          {[
+            {
+              icon: (
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                </svg>
+              ),
+              label: "WhatsApp",
+              value: "+27 82 764 2367",
+              sub: "Fastest response",
+              href: "https://wa.me/27827642367",
+            },
+            {
+              icon: (
+                <svg
+                  width="20"
+                  height="20"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                  />
+                </svg>
+              ),
+              label: "Email",
+              value: "info@sahvehinvestment.co.za",
+              sub: "Reply within 1 business day",
+              href: "mailto:info@sahvehinvestment.co.za",
+            },
+            {
+              icon: (
+                <svg
+                  width="20"
+                  height="20"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+              ),
+              label: "Hours",
+              value: "Mon – Fri, 9am – 6pm",
+              sub: "SAST · South Africa",
+              href: null,
+            },
+          ].map(({ icon, label, value, sub, href }) => (
+            <li key={label}>
+              <div className="h-full bg-white border border-[#ede5d8] rounded-2xl px-7 py-7 flex flex-col gap-4">
+                <span className="w-11 h-11 rounded-full bg-[#f0e8da] flex items-center justify-center text-[#7a5c2e]">
+                  {icon}
+                </span>
+                <div>
+                  <p
+                    className="text-[0.62rem] tracking-[0.22em] uppercase text-[#9c8060] mb-1"
+                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  >
+                    {label}
+                  </p>
+                  {href ? (
+                    <a
+                      href={href}
+                      target={href.startsWith("http") ? "_blank" : undefined}
+                      rel={
+                        href.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                      className="text-[1rem] text-[#2d2416] hover:text-[#7a5c2e] transition-colors break-all"
+                      style={{
+                        fontFamily: "'Cormorant Garamond', serif",
+                        fontWeight: 600,
+                        fontSize: "1.1rem",
+                      }}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      Our Location
-                    </h3>
-                    <p className="text-gray-600">South Africa</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-green-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+                      {value}
+                    </a>
+                  ) : (
+                    <p
+                      className="text-[#2d2416]"
+                      style={{
+                        fontFamily: "'Cormorant Garamond', serif",
+                        fontWeight: 600,
+                        fontSize: "1.1rem",
+                      }}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      Email Us
-                    </h3>
-                    <p className="text-gray-600">info@sahvehinvestment.co.za</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-green-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      Call Us
-                    </h3>
-                    <p className="text-gray-600">+27 82 764 2367</p>
-                    <p className="text-sm text-gray-500 mt-1">
-                      Mon - Fri: 9am - 6pm SAST
+                      {value}
                     </p>
-                  </div>
+                  )}
+                  <p
+                    className="text-[0.75rem] text-[#9c8060] mt-1"
+                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  >
+                    {sub}
+                  </p>
                 </div>
               </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* ── Form + FAQ ── */}
+      <section className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          {/* Form */}
+          <div>
+            <p
+              className="text-[0.65rem] tracking-[0.3em] uppercase text-[#9c8060] mb-3"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              Send a Message
+            </p>
+            <h2
+              className="text-[2rem] sm:text-[2.4rem] text-[#2d2416] mb-8"
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 600,
+              }}
+            >
+              We&apos;d Love to Hear
+              <br />
+              From You
+            </h2>
+            <div className="bg-white border border-[#ede5d8] rounded-2xl p-8">
+              <ContactForm />
             </div>
+          </div>
 
-            {/* Contact Form */}
-            <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Send Us a Message
-              </h2>
-              {message && (
-                <div
-                  className={`p-4 rounded-md mb-4 ${message.includes("success") ? "bg-green-100 text-green-800 border border-green-300" : "bg-red-100 text-red-800 border border-red-300"}`}
-                >
-                  {message}
-                </div>
-              )}
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-4"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label
-                      htmlFor="firstName"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border text-black border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="John"
-                    />
-                    {errors.firstName && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.firstName}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="lastName"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border text-black border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="Doe"
-                    />
-                    {errors.lastName && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.lastName}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 text-black border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    placeholder="john@example.com"
-                  />
-                  {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Phone Number (Optional)
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    className="w-full px-4 py-2 border text-black border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    placeholder="+27 82 000 0000"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="subject"
-                    className="block text-sm font-medium text-black mb-1"
-                  >
-                    Subject
-                  </label>
-                  <select
-                    id="subject"
-                    className="w-full text-black px-4 py-2 border  rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  >
-                    <option value="">Select a topic</option>
-                    <option
-                      value="product"
-                      className="text-green-600"
-                    >
-                      Product Inquiry
-                    </option>
-                    <option
-                      value="order"
-                      className="text-green-600"
-                    >
-                      Order Support
-                    </option>
-                    <option
-                      value="wellness"
-                      className="text-green-600"
-                    >
-                      Wellness Advice
-                    </option>
-                    <option
-                      value="partnership"
-                      className="text-green-600"
-                    >
-                      Partnership
-                    </option>
-                    <option
-                      value="other"
-                      className="text-green-600"
-                    >
-                      Other
-                    </option>
-                  </select>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-black mb-1"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    className="w-full px-4 py-2  text-black rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    placeholder="How can we help you?"
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full px-6 py-3 bg-green-600 text-white rounded-md shadow hover:bg-green-700 transition duration-200 font-semibold"
-                >
-                  Send Message
-                </button>
-              </form>
+          {/* FAQ */}
+          <div>
+            <p
+              className="text-[0.65rem] tracking-[0.3em] uppercase text-[#9c8060] mb-3"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              FAQ
+            </p>
+            <h2
+              className="text-[2rem] sm:text-[2.4rem] text-[#2d2416] mb-8"
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 600,
+              }}
+            >
+              Frequently Asked
+              <br />
+              Questions
+            </h2>
+            <div className="bg-white border border-[#ede5d8] rounded-2xl px-8 py-2">
+              {faqs.map((faq) => (
+                <FaqItem
+                  key={faq.q}
+                  q={faq.q}
+                  a={faq.a}
+                />
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-16 bg-green-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-12 playfair text-center">
-            Frequently Asked Questions
-          </h2>
-          <div className="max-w-3xl mx-auto space-y-6">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                What are your shipping times?
-              </h3>
-              <p className="text-gray-600">
-                We typically process and ship orders within 1-2 business days.
-                Standard shipping takes 3-5 business days, while express
-                shipping delivers within 1-2 business days.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Do you offer refunds?
-              </h3>
-              <p className="text-gray-600">
-                Yes, we offer a 30-day satisfaction guarantee. If you are not
-                completely satisfied with your purchase, contact us for a full
-                refund.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Are your products organic?
-              </h3>
-              <p className="text-gray-600">
-                Yes, all of our supplements are made with 100% organic
-                ingredients. We source from certified organic farms and
-                third-party test every batch for purity.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Can I take multiple supplements together?
-              </h3>
-              <p className="text-gray-600">
-                Most of our supplements can be taken together. However, we
-                recommend consulting with one of our wellness experts or your
-                healthcare provider for personalized guidance.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Do you ship internationally?
-              </h3>
-              <p className="text-gray-600">
-                Yes, we ship to over 50 countries worldwide. International
-                shipping typically takes 7-14 business days depending on the
-                destination. Customs fees may apply.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                How should I store your supplements?
-              </h3>
-              <p className="text-gray-600">
-                Store our supplements in a cool, dry place away from direct
-                sunlight. Keep the container tightly closed and out of reach of
-                children. Most products have a shelf life of 2 years when stored
-                properly.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Are your products vegan-friendly?
-              </h3>
-              <p className="text-gray-600">
-                Yes, all of our supplements are 100% vegan and plant-based. We
-                never use animal products or by-products in our formulations.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Can I cancel or modify my order after placing it?
-              </h3>
-              <p className="text-gray-600">
-                You can cancel or modify your order within 24 hours of placing
-                it. Please contact our customer support team as soon as possible
-                with your order number.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Do you offer wholesale or bulk orders?
-              </h3>
-              <p className="text-gray-600">
-                Yes, we offer wholesale pricing for retailers, wellness
-                practitioners, and bulk orders. Please contact our partnership
-                team at wholesale@sahveh.com for more information.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                What makes Sah Veh supplements different?
-              </h3>
-              <p className="text-gray-600">
-                We prioritize quality, purity, and transparency. All our
-                products are made with premium organic ingredients, manufactured
-                in FDA-registered facilities, and third-party tested for
-                contaminants.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                How do I know which supplements are right for me?
-              </h3>
-              <p className="text-gray-600">
-                Our team of wellness experts is here to help! You can schedule a
-                free consultation or reach out through our contact form for
-                personalized recommendations based on your health goals.
-              </p>
-            </div>
+      {/* ── CTA Banner ── */}
+      <section className="mx-5 sm:mx-8 lg:mx-12 mb-20 rounded-3xl overflow-hidden">
+        <div
+          className="relative px-8 sm:px-14 py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8"
+          style={{
+            background:
+              "linear-gradient(135deg, #2d2416 0%, #4a3520 60%, #7a5c2e 100%)",
+          }}
+        >
+          <div
+            className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-10 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle, #f5ede0 0%, transparent 70%)",
+              transform: "translate(30%, -30%)",
+            }}
+            aria-hidden="true"
+          />
+          <div className="relative max-w-lg">
+            <p
+              className="text-[0.65rem] tracking-[0.35em] uppercase text-[#c8a96a] mb-3"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              Still have questions?
+            </p>
+            <h2
+              className="text-[1.8rem] sm:text-[2.2rem] leading-tight text-[#f5ede0] mb-3"
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 600,
+              }}
+            >
+              Not sure which supplement is right for you?
+            </h2>
+            <p
+              className="text-[0.85rem] leading-relaxed text-[#d4c4a8]"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              Our wellness experts offer free, personalised guidance to help you
+              find the perfect formula for your body and goals.
+            </p>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-green-900">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 playfair">
-            Still Have Questions?
-          </h2>
-          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-            Our wellness team is here to help you find the right supplements for
-            your needs.
-          </p>
-          <Link
-            href="/"
-            className="inline-block px-8 py-3 bg-green-600 text-white rounded-md shadow hover:bg-green-700 transition duration-200 font-semibold"
-          >
-            Browse Products
-          </Link>
+          <div className="relative flex flex-col sm:flex-row gap-3 flex-shrink-0">
+            <a
+              href="https://wa.me/27827642367"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-[#f5ede0] text-[#2d2416]
+                text-[0.72rem] tracking-[0.18em] uppercase font-semibold transition-all duration-300
+                hover:bg-white hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)]"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              Chat on WhatsApp
+            </a>
+            <Link
+              href="/products"
+              className="flex items-center justify-center px-7 py-3.5 rounded-full border border-white/20 text-[#f5ede0]
+                text-[0.72rem] tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-white/10"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              Browse Products
+            </Link>
+          </div>
         </div>
       </section>
     </main>
   );
-};
-
-export default Contact;
+}

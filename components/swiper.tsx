@@ -2,36 +2,31 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, EffectFade } from "swiper/modules";
-import hero from "../assets/images/hero.png";
-import hero1 from "../assets/images/hero1.png";
-import hero3 from "../assets/images/hero3.png";
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
+
 import Image from "next/image";
 
 const slides = [
   {
     title: "Holistic Wellness",
     description: "Empowering your mind, body and spirit.",
-    image: hero,
+    image: "/images/hero.png",
   },
   {
     title: "Natural Healing",
     description: "Restore balance and inner peace.",
-    image: hero1,
+    image: "/images/hero1.png",
   },
   {
     title: "Personalized Care",
     description: "Wellness tailored just for you.",
-    image: hero3,
+    image: "/images/hero3.png",
   },
 ];
 
 export default function HeroSlider() {
   return (
-    <div className="w-full h-[60vh] md:h-screen">
+    <div className="w-full h-[60vh] md:h-screen opacity-50">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         autoplay={{ delay: 4000, disableOnInteraction: false }}

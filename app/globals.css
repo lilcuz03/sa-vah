@@ -24,7 +24,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #faf7f2;
     --foreground: #ededed;
   }
 }
@@ -47,6 +47,14 @@ h6 {
 /* Utility class to apply Playfair Display where needed */
 .playfair {
   font-family: var(--font-heading) !important;
+}
+
+/* Blog post content images should render fully (no clipping) */
+.prose img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  max-width: 100% !important;
 }
 
 /* Custom Swiper Pagination Bullets */
