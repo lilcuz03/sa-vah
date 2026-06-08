@@ -1,45 +1,39 @@
-// import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import products from "../../../lib/products";
-import { Metadata } from "next";
-// ─── Product Data ─────────────────────────────────────────────────────────────
 
-// ─── Related products (exclude current) ──────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
 function getRelated(currentId: number) {
   return products.filter((p) => p.id !== currentId).slice(0, 3);
 }
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
+
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const product = products.find((p) => p.id === Number(params.id));
+  const { slug } = await params;
+  const product = products.find((p) => p.slug === slug);
   if (!product) return { title: "Product Not Found | Sah Veh" };
 
   return {
-    title: `${product.name} — ${product.tagline} | Sah Veh`,
-    description: `${product.shortDescription}. ${product.description.slice(0, 120)}... Shop Sah Veh natural wellness supplements.`,
-    keywords: [
-      product.name.toLowerCase(),
-      product.category.toLowerCase(),
-      "natural supplements South Africa",
-      "organic wellness",
-      "Sah Veh",
-      product.tagline.toLowerCase(),
-    ],
+    title: product.seo.title,
+    description: product.seo.metaDescription,
+    keywords: product.seo.keywords,
     openGraph: {
-      title: `${product.name} | Sah Veh`,
-      description: product.shortDescription,
-      url: `https://sa-vah.vercel.app/product/${product.name.toLowerCase().replace(/\s+/g, "-")}`,
+      title: product.seo.ogTitle,
+      description: product.seo.ogDescription,
+      url: `https://sa-vah.vercel.app/product/${product.slug}`,
       siteName: "Sah Veh",
       type: "website",
       images: [
         {
-          url: `https://sa-vah.vercel.app/og-product-${product.name}.jpg`,
+          url: `https://sa-vah.vercel.app${product.image}`,
           width: 1200,
           height: 630,
           alt: product.name,
@@ -48,37 +42,40 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product.name} | Sah Veh`,
-      description: product.shortDescription,
+      title: product.seo.ogTitle,
+      description: product.seo.ogDescription,
     },
     alternates: {
-      canonical: `https://sa-vah.vercel.app/product/${product.name.toLowerCase().replace(/\s+/g, "-")}`,
+      canonical: `https://sa-vah.vercel.app/product/${product.seo.canonicalSlug}`,
     },
   };
 }
 
-// ─── Static Params ─────────────────────────────────────────────────────────────
+// ─── Static Params ────────────────────────────────────────────────────────────
+
 export function generateStaticParams() {
-  return products.map((p) => ({ id: String(p.id) }));
+  return products.map((p) => ({ slug: p.slug }));
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
+
 export default async function ProductPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
-  const product = products.find((p) => p.id === Number(id));
+  const { slug } = await params;
+  const product = products.find((p) => p.slug === slug);
   if (!product) notFound();
 
   const related = getRelated(product.id);
 
+  // JSON-LD — uses seo.schemaDescription (factual, no health claims)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    description: product.description,
+    description: product.seo.schemaDescription,
     image: `https://sa-vah.vercel.app${product.image}`,
     brand: { "@type": "Brand", name: "Sah Veh" },
     category: product.category,
@@ -88,8 +85,34 @@ export default async function ProductPage({
       price: product.price.toFixed(2),
       availability: "https://schema.org/InStock",
       seller: { "@type": "Organization", name: "Sah Veh" },
-      url: `https://sa-vah.vercel.app/product/${product.name.toLowerCase().replace(/\s+/g, "-")}`,
+      url: `https://sa-vah.vercel.app/product/${product.slug}`,
     },
+  };
+
+  // Breadcrumb JSON-LD
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://sa-vah.vercel.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Products",
+        item: "https://sa-vah.vercel.app/products",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.name,
+        item: `https://sa-vah.vercel.app/product/${product.slug}`,
+      },
+    ],
   };
 
   const whatsappMsg = `Hi, I'm interested in ${product.name} (R${product.price.toFixed(2)}). Is it available?`;
@@ -99,6 +122,10 @@ export default async function ProductPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
 
       <main className="bg-[#faf7f2] min-h-screen">
@@ -150,9 +177,8 @@ export default async function ProductPage({
         {/* ── Hero: Image + Details ── */}
         <section className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-            {/* Image panel */}
+            {/* ── Image panel ── */}
             <div className="relative">
-              {/* Badge */}
               {product.badge && (
                 <span
                   className="absolute top-5 left-5 z-10 px-3 py-1.5 rounded-full text-[0.62rem] tracking-[0.18em] uppercase font-medium bg-[#2d2416] text-[#f5ede0]"
@@ -172,39 +198,43 @@ export default async function ProductPage({
                 />
               </div>
 
-              {/* Meta pills below image */}
+              {/* Meta pills */}
               <div className="flex flex-wrap gap-2 mt-4">
-                {[
-                  { label: "Category", value: product.category },
-                  { label: "Origin", value: product.origin },
-                  { label: "Format", value: product.format },
-                ].map(({ label, value }) => (
-                  <div
-                    key={label}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#ede5d8]"
-                  >
-                    <span
-                      className="text-[0.6rem] tracking-[0.2em] uppercase text-[#9c8060]"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                {(
+                  [
+                    { label: "Category", value: product.category },
+                    { label: "Origin", value: product.origin },
+                    { label: "Format", value: product.format },
+                  ] as { label: string; value: string | undefined }[]
+                )
+                  .filter(({ value }) => Boolean(value))
+                  .map(({ label, value }) => (
+                    <div
+                      key={label}
+                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#ede5d8]"
                     >
-                      {label}
-                    </span>
-                    <span
-                      className="w-px h-3 bg-[#ede5d8]"
-                      aria-hidden="true"
-                    />
-                    <span
-                      className="text-[0.75rem] text-[#4a3f32] font-medium"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
-                    >
-                      {value}
-                    </span>
-                  </div>
-                ))}
+                      <span
+                        className="text-[0.6rem] tracking-[0.2em] uppercase text-[#9c8060]"
+                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      >
+                        {label}
+                      </span>
+                      <span
+                        className="w-px h-3 bg-[#ede5d8]"
+                        aria-hidden="true"
+                      />
+                      <span
+                        className="text-[0.75rem] text-[#4a3f32] font-medium"
+                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      >
+                        {value}
+                      </span>
+                    </div>
+                  ))}
               </div>
             </div>
 
-            {/* Details panel */}
+            {/* ── Details panel ── */}
             <div className="flex flex-col">
               <p
                 className="text-[0.65rem] tracking-[0.35em] uppercase text-[#9c8060] mb-3"
@@ -242,7 +272,6 @@ export default async function ProductPage({
                 </span>
               </div>
 
-              {/* Divider */}
               <div
                 className="w-12 h-px bg-[#c8b89a] mb-6"
                 aria-hidden="true"
@@ -284,28 +313,31 @@ export default async function ProductPage({
                 </ul>
               </div>
 
-              {/* How to use */}
-              <div className="rounded-2xl bg-[#f0e8da] border border-[#ede5d8] px-6 py-5 mb-8">
-                <p
-                  className="text-[0.62rem] tracking-[0.25em] uppercase text-[#9c8060] mb-2"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
-                >
-                  How to Use
-                </p>
-                <p
-                  className="text-[0.85rem] leading-relaxed text-[#5a4a35]"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
-                >
-                  {product.howToUse}
-                </p>
-              </div>
+              {/* How to Use */}
+              {product.howToUse && (
+                <div className="rounded-2xl bg-[#f0e8da] border border-[#ede5d8] px-6 py-5 mb-8">
+                  <p
+                    className="text-[0.62rem] tracking-[0.25em] uppercase text-[#9c8060] mb-2"
+                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  >
+                    How to Use
+                  </p>
+                  <p
+                    className="text-[0.85rem] leading-relaxed text-[#5a4a35]"
+                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  >
+                    {product.howToUse}
+                  </p>
+                </div>
+              )}
 
-              {/* CTA */}
+              {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
                   href={`https://wa.me/27827642367?text=${encodeURIComponent(whatsappMsg)}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Order ${product.name} on WhatsApp`}
                   className="flex-1 flex items-center justify-center gap-2.5 px-8 py-4 rounded-full
                     bg-[#2d2416] text-[#f5ede0] text-[0.75rem] tracking-[0.18em] uppercase font-semibold
                     transition-all duration-300 hover:bg-[#7a5c2e] hover:shadow-[0_8px_30px_rgba(122,92,46,0.3)]"
@@ -316,18 +348,19 @@ export default async function ProductPage({
                 </a>
                 <Link
                   href="/products"
-                  className="flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-[#c8b89a] text-[#7a5c2e]
-                    text-[0.75rem] tracking-[0.18em] uppercase font-medium transition-all duration-200
-                    hover:bg-[#f0e8da]"
+                  className="flex items-center justify-center gap-2 px-6 py-4 rounded-full
+                    border border-[#c8b89a] text-[#7a5c2e] text-[0.75rem] tracking-[0.18em] uppercase font-medium
+                    transition-all duration-200 hover:bg-[#f0e8da]"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
                   ← All Products
                 </Link>
               </div>
 
-              {/* Trust line */}
+              {/* Trust badges */}
               <div
-                className="flex flex-wrap items-center gap-4 mt-6 pt-6 border-t border-[#ede5d8] text-[0.7rem] tracking-[0.12em] uppercase text-[#9c8060]"
+                className="flex flex-wrap items-center gap-4 mt-6 pt-6 border-t border-[#ede5d8]
+                  text-[0.7rem] tracking-[0.12em] uppercase text-[#9c8060]"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
                 <span className="flex items-center gap-1.5">
@@ -345,121 +378,125 @@ export default async function ProductPage({
         </section>
 
         {/* ── Related Products ── */}
-        <section
-          className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-20"
-          aria-labelledby="related-heading"
-        >
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p
-                className="text-[0.65rem] tracking-[0.3em] uppercase text-[#9c8060] mb-2"
+        {related.length > 0 && (
+          <section
+            className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-20"
+            aria-labelledby="related-heading"
+          >
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <p
+                  className="text-[0.65rem] tracking-[0.3em] uppercase text-[#9c8060] mb-2"
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  Continue Your Journey
+                </p>
+                <h2
+                  id="related-heading"
+                  className="text-[1.8rem] sm:text-[2.2rem] text-[#2d2416]"
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontWeight: 600,
+                  }}
+                >
+                  You May Also Like
+                </h2>
+              </div>
+              <Link
+                href="/products"
+                className="hidden sm:flex items-center gap-2 text-[0.72rem] tracking-[0.18em] uppercase
+                  text-[#7a5c2e] hover:text-[#2d2416] transition-colors"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
-                Continue Your Journey
-              </p>
-              <h2
-                id="related-heading"
-                className="text-[1.8rem] sm:text-[2.2rem] text-[#2d2416]"
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontWeight: 600,
-                }}
-              >
-                You May Also Like
-              </h2>
+                View All →
+              </Link>
             </div>
-            <Link
-              href="/products"
-              className="hidden sm:flex items-center gap-2 text-[0.72rem] tracking-[0.18em] uppercase text-[#7a5c2e]
-                hover:text-[#2d2416] transition-colors"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
-            >
-              View All →
-            </Link>
-          </div>
 
-          <ul
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6"
-            role="list"
-          >
-            {related.map((item) => (
-              <li
-                key={item.id}
-                className="group"
-              >
-                <article className="bg-white rounded-2xl overflow-hidden border border-[#ede5d8] transition-all duration-300 hover:shadow-[0_12px_40px_rgba(120,100,60,0.10)] hover:-translate-y-1">
-                  <Link
-                    href={`/product/${item.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="relative block aspect-4/3 bg-[#f5efe6] overflow-hidden"
-                    aria-label={`View ${item.name}`}
-                  >
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <span
-                      className="absolute bottom-3 right-3 px-3 py-1 rounded-full text-[0.6rem] tracking-[0.12em] uppercase bg-white/90 backdrop-blur-sm text-[#7a5c2e] border border-[#ede5d8]"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+            <ul
+              className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+              role="list"
+            >
+              {related.map((item) => (
+                <li
+                  key={item.id}
+                  className="group"
+                >
+                  <article className="bg-white rounded-2xl overflow-hidden border border-[#ede5d8] transition-all duration-300 hover:shadow-[0_12px_40px_rgba(120,100,60,0.10)] hover:-translate-y-1">
+                    <Link
+                      href={`/product/${item.slug}`}
+                      className="relative block aspect-[4/3] bg-[#f5efe6] overflow-hidden"
+                      aria-label={`View ${item.name}`}
                     >
-                      {item.category}
-                    </span>
-                  </Link>
-                  <div className="p-5">
-                    <p
-                      className="text-[0.62rem] tracking-[0.22em] uppercase text-[#9c8060] mb-1"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
-                    >
-                      {item.tagline}
-                    </p>
-                    <Link href={`/product/${item.name.toLowerCase().replace(/\s+/g, "-")}`}>
-                      <h3
-                        className="text-[1.15rem] text-[#2d2416] mb-1 hover:text-[#7a5c2e] transition-colors"
-                        style={{
-                          fontFamily: "'Cormorant Garamond', serif",
-                          fontWeight: 600,
-                        }}
-                      >
-                        {item.name}
-                      </h3>
-                    </Link>
-                    <div className="flex items-center justify-between mt-4 pt-4 border-t border-[#ede5d8]">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
                       <span
-                        className="text-[1.2rem] text-[#2d2416]"
-                        style={{
-                          fontFamily: "'Cormorant Garamond', serif",
-                          fontWeight: 600,
-                        }}
-                      >
-                        R{item.price.toFixed(2)}
-                      </span>
-                      <a
-                        href={`https://wa.me/27827642367?text=${encodeURIComponent(`Hi, I'm interested in ${item.name} (R${item.price.toFixed(2)}). Is it available?`)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Order ${item.name} on WhatsApp`}
-                        className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[0.68rem] tracking-[0.12em] uppercase
-                          bg-[#2d2416] text-[#f5ede0] hover:bg-[#7a5c2e] transition-colors duration-200"
+                        className="absolute bottom-3 right-3 px-3 py-1 rounded-full text-[0.6rem] tracking-[0.12em] uppercase bg-white/90 backdrop-blur-sm text-[#7a5c2e] border border-[#ede5d8]"
                         style={{ fontFamily: "'DM Sans', sans-serif" }}
                       >
-                        <WhatsAppIcon />
-                        Order
-                      </a>
+                        {item.category}
+                      </span>
+                    </Link>
+                    <div className="p-5">
+                      <p
+                        className="text-[0.62rem] tracking-[0.22em] uppercase text-[#9c8060] mb-1"
+                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      >
+                        {item.tagline}
+                      </p>
+                      {/* FIX: was building slug manually — now uses item.slug */}
+                      <Link href={`/product/${item.slug}`}>
+                        <h3
+                          className="text-[1.15rem] text-[#2d2416] mb-1 hover:text-[#7a5c2e] transition-colors"
+                          style={{
+                            fontFamily: "'Cormorant Garamond', serif",
+                            fontWeight: 600,
+                          }}
+                        >
+                          {item.name}
+                        </h3>
+                      </Link>
+                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-[#ede5d8]">
+                        <span
+                          className="text-[1.2rem] text-[#2d2416]"
+                          style={{
+                            fontFamily: "'Cormorant Garamond', serif",
+                            fontWeight: 600,
+                          }}
+                        >
+                          R{item.price.toFixed(2)}
+                        </span>
+                        <a
+                          href={`https://wa.me/27827642367?text=${encodeURIComponent(`Hi, I'm interested in ${item.name} (R${item.price.toFixed(2)}). Is it available?`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Order ${item.name} on WhatsApp`}
+                          className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[0.68rem] tracking-[0.12em] uppercase
+                            bg-[#2d2416] text-[#f5ede0] hover:bg-[#7a5c2e] transition-colors duration-200"
+                          style={{ fontFamily: "'DM Sans', sans-serif" }}
+                        >
+                          <WhatsAppIcon />
+                          Order
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </li>
-            ))}
-          </ul>
-        </section>
+                  </article>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </main>
     </>
   );
 }
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
+
 function WhatsAppIcon() {
   return (
     <svg
@@ -473,6 +510,7 @@ function WhatsAppIcon() {
     </svg>
   );
 }
+
 function LeafIcon() {
   return (
     <svg
@@ -492,6 +530,7 @@ function LeafIcon() {
     </svg>
   );
 }
+
 function ShieldIcon() {
   return (
     <svg
@@ -511,6 +550,7 @@ function ShieldIcon() {
     </svg>
   );
 }
+
 function TruckIcon() {
   return (
     <svg

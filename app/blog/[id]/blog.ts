@@ -43,7 +43,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 1. Ashwagandha ─────────────────────────────────────────────────────────
   {
     id: 1,
-    slug: "1",
+    slug: "Ashwagandha-and-the-science-of-stress-reduction",
     title: "Ashwagandha and the Science of Stress Reduction",
     subtitle:
       "How this ancient adaptogenic herb helps regulate cortisol and build resilience to modern stress",
@@ -157,19 +157,19 @@ export const blogPosts: BlogPost[] = [
         id: 8,
         title: "Stress Management Through Herbal Protocols",
         category: "Wellness",
-        slug: "8",
+        slug: "stress-management-through-herbal-protocols",
       },
       {
         id: 12,
         title: "Energy and Vitality Protocol",
         category: "Wellness",
-        slug: "12",
+        slug: "energy-and-vitality-protocol",
       },
       {
         id: 7,
         title: "Superfood Combinations for Daily Wellness",
         category: "Superfoods",
-        slug: "7",
+        slug: "superfood-combinations-for-daily-wellness",
       },
     ],
   },
@@ -177,7 +177,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 2. Moringa ─────────────────────────────────────────────────────────────
   {
     id: 2,
-    slug: "2",
+    slug: "moringa-oleifera-the-most-nutrient-dense-plant-on-earth",
     title: "Moringa Oleifera: The Most Nutrient-Dense Plant on Earth",
     subtitle:
       "Why this African superfood delivers more vitamins, minerals, and protein than almost any other plant",
@@ -312,19 +312,19 @@ export const blogPosts: BlogPost[] = [
         id: 7,
         title: "Superfood Combinations for Daily Wellness",
         category: "Superfoods",
-        slug: "7",
+        slug: "superfood-combinations-for-daily-wellness",
       },
       {
         id: 9,
         title: "Immune Boosting Superfoods",
         category: "Health",
-        slug: "9",
+        slug: "immune-boosting-superfoods",
       },
       {
         id: 1,
         title: "Ashwagandha and the Science of Stress Reduction",
         category: "Wellness",
-        slug: "1",
+        slug: "ashwagandha-and-the-science-of-stress-reduction",
       },
     ],
   },
@@ -332,7 +332,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 3. Hibiscus ────────────────────────────────────────────────────────────
   {
     id: 3,
-    slug: "3",
+    slug: "hibiscus-tea-benefits-for-heart-health",
     title: "Hibiscus Tea Benefits for Heart Health",
     subtitle:
       "How the deep-red petals of Hibiscus sabdariffa support blood pressure, cholesterol, and cardiovascular wellness",
@@ -444,19 +444,19 @@ export const blogPosts: BlogPost[] = [
         id: 11,
         title: "Heart Health with Plant-Based Solutions",
         category: "Heart Health",
-        slug: "11",
+        slug: "heart-health-with-plant-based-solutions",
       },
       {
         id: 9,
         title: "Immune Boosting Superfoods",
         category: "Health",
-        slug: "9",
+        slug: "immune-boosting-superfoods",
       },
       {
         id: 4,
         title: "Aloe Vera for Digestive Wellness",
         category: "Digestive Health",
-        slug: "4",
+        slug: "aloe-vera-for-digestive-wellness",
       },
     ],
   },
@@ -464,7 +464,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 4. Aloe Vera ───────────────────────────────────────────────────────────
   {
     id: 4,
-    slug: "4",
+    slug: "aloe-vera-for-digestive-wellness",
     title: "Aloe Vera for Digestive Wellness",
     subtitle:
       "How the gel and latex of Aloe barbadensis support gut health, detoxification, and colon cleansing",
@@ -591,19 +591,19 @@ export const blogPosts: BlogPost[] = [
         id: 5,
         title: "Kombucha Probiotics Guide",
         category: "Gut Health",
-        slug: "5",
+        slug: "kombucha-probiotics-guide",
       },
       {
         id: 10,
         title: "Digestive Health with Natural Remedies",
         category: "Digestive Health",
-        slug: "10",
+        slug: "digestive-health-with-natural-remedies",
       },
       {
         id: 2,
         title: "Moringa Oleifera: The Most Nutrient-Dense Plant on Earth",
         category: "Superfoods",
-        slug: "2",
+        slug: "moringa-oleifera-the-most-nutrient-dense-plant-on-earth",
       },
     ],
   },
@@ -611,7 +611,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 5. Kombucha ────────────────────────────────────────────────────────────
   {
     id: 5,
-    slug: "5",
+    slug: "kombucha-probiotics-guide",
     title: "Kombucha Probiotics Guide",
     subtitle:
       "Understanding the gut microbiome benefits of kombucha — from SCOBY science to daily wellness",
@@ -727,19 +727,19 @@ export const blogPosts: BlogPost[] = [
         id: 4,
         title: "Aloe Vera for Digestive Wellness",
         category: "Digestive Health",
-        slug: "4",
+        slug: "aloe-vera-for-digestive-wellness",
       },
       {
         id: 10,
         title: "Digestive Health with Natural Remedies",
         category: "Digestive Health",
-        slug: "10",
+        slug: "digestive-health-with-natural-remedies",
       },
       {
         id: 9,
         title: "Immune Boosting Superfoods",
         category: "Health",
-        slug: "9",
+        slug: "immune-boosting-superfoods",
       },
     ],
   },
@@ -747,7 +747,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 6. Ndolwani ────────────────────────────────────────────────────────────
   {
     id: 6,
-    slug: "6",
+    slug: "ndolwani-traditional-african-sleep-remedy",
     title: "Ndolwani: A Traditional African Sleep Remedy",
     subtitle:
       "How this indigenous Southern African herb promotes deep, restorative sleep through natural sedative pathways",
@@ -857,19 +857,19 @@ export const blogPosts: BlogPost[] = [
         id: 1,
         title: "Ashwagandha and the Science of Stress Reduction",
         category: "Wellness",
-        slug: "1",
+        slug: "ashwagandha-and-the-science-of-stress-reduction",
       },
       {
         id: 8,
         title: "Stress Management Through Herbal Protocols",
         category: "Wellness",
-        slug: "8",
+        slug: "stress-management-through-herbal-protocols",
       },
       {
         id: 12,
         title: "Energy and Vitality Protocol",
         category: "Wellness",
-        slug: "12",
+        slug: "energy-and-vitality-protocol",
       },
     ],
   },
@@ -877,7 +877,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 7. Superfood Combos ─────────────────────────────────────────────────────
   {
     id: 7,
-    slug: "7",
+    slug: "superfood-combinations-for-daily-wellness",
     title: "Superfood Combinations for Daily Wellness",
     subtitle:
       "How to stack Moringa, Ashwagandha, Kombucha, and more for synergistic health results",
@@ -984,19 +984,19 @@ export const blogPosts: BlogPost[] = [
         id: 2,
         title: "Moringa Oleifera: The Most Nutrient-Dense Plant on Earth",
         category: "Superfoods",
-        slug: "2",
+        slug: "moringa-oleifera-the-most-nutrient-dense-plant-on-earth",
       },
       {
         id: 1,
         title: "Ashwagandha and the Science of Stress Reduction",
         category: "Wellness",
-        slug: "1",
+        slug: "ashwagandha-and-the-science-of-stress-reduction",
       },
       {
         id: 5,
         title: "Kombucha Probiotics Guide",
         category: "Gut Health",
-        slug: "5",
+        slug: "kombucha-probiotics-guide",
       },
     ],
   },
@@ -1004,7 +1004,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 8. Stress Herbal Protocols ─────────────────────────────────────────────
   {
     id: 8,
-    slug: "8",
+    slug: "stress-management-through-herbal-protocols",
     title: "Stress Management Through Herbal Protocols",
     subtitle:
       "A structured approach to building long-term stress resilience using adaptogens and nervines",
@@ -1112,19 +1112,19 @@ export const blogPosts: BlogPost[] = [
         id: 1,
         title: "Ashwagandha and the Science of Stress Reduction",
         category: "Wellness",
-        slug: "1",
+        slug: "ashwagandha-and-the-science-of-stress-reduction",
       },
       {
         id: 6,
         title: "Ndolwani: A Traditional African Sleep Remedy",
         category: "Sleep",
-        slug: "6",
+        slug: "ndolwani-traditional-african-sleep-remedy",
       },
       {
         id: 12,
         title: "Energy and Vitality Protocol",
         category: "Wellness",
-        slug: "12",
+        slug: "energy-and-vitality-protocol",
       },
     ],
   },
@@ -1132,7 +1132,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 9. Immune Boosting ─────────────────────────────────────────────────────
   {
     id: 9,
-    slug: "9",
+    slug: "immune-boosting-superfoods",
     title: "Immune Boosting Superfoods",
     subtitle:
       "The nutrient-dense plants and compounds that fortify your immune system year-round",
@@ -1233,19 +1233,19 @@ export const blogPosts: BlogPost[] = [
         id: 2,
         title: "Moringa Oleifera: The Most Nutrient-Dense Plant on Earth",
         category: "Superfoods",
-        slug: "2",
+        slug: "moringa-oleifera-the-most-nutrient-dense-plant-on-earth",
       },
       {
         id: 3,
         title: "Hibiscus Tea Benefits for Heart Health",
         category: "Heart Health",
-        slug: "3",
+        slug: "hibiscus-tea-benefits-for-heart-health",
       },
       {
         id: 5,
         title: "Kombucha Probiotics Guide",
         category: "Gut Health",
-        slug: "5",
+        slug: "kombucha-probiotics-guide",
       },
     ],
   },
@@ -1253,7 +1253,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 10. Digestive Health ───────────────────────────────────────────────────
   {
     id: 10,
-    slug: "10",
+    slug: "digestive-health-with-natural-remedies",
     title: "Digestive Health with Natural Remedies",
     subtitle:
       "Traditional and modern approaches to gut wellness — from Aloe and Kombucha to herbal bitters and fibre",
@@ -1376,19 +1376,19 @@ export const blogPosts: BlogPost[] = [
         id: 4,
         title: "Aloe Vera for Digestive Wellness",
         category: "Digestive Health",
-        slug: "4",
+        slug: "aloe-vera-for-digestive-wellness",
       },
       {
         id: 5,
         title: "Kombucha Probiotics Guide",
         category: "Gut Health",
-        slug: "5",
+        slug: "kombucha-probiotics-guide",
       },
       {
         id: 9,
         title: "Immune Boosting Superfoods",
         category: "Health",
-        slug: "9",
+        slug: "immune-boosting-superfoods",
       },
     ],
   },
@@ -1396,7 +1396,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 11. Heart Health Plant-Based ──────────────────────────────────────────
   {
     id: 11,
-    slug: "11",
+    slug: "heart-health-with-plant-based-solutions",
     title: "Heart Health with Plant-Based Solutions",
     subtitle:
       "How plant compounds address the major cardiovascular risk factors — blood pressure, cholesterol, inflammation, and oxidative stress",
@@ -1501,19 +1501,19 @@ export const blogPosts: BlogPost[] = [
         id: 3,
         title: "Hibiscus Tea Benefits for Heart Health",
         category: "Heart Health",
-        slug: "3",
+        slug: "hibiscus-tea-benefits-for-heart-health",
       },
       {
         id: 2,
         title: "Moringa Oleifera: The Most Nutrient-Dense Plant on Earth",
         category: "Superfoods",
-        slug: "2",
+        slug: "moringa-oleifera-the-most-nutrient-dense-plant-on-earth",
       },
       {
         id: 9,
         title: "Immune Boosting Superfoods",
         category: "Health",
-        slug: "9",
+        slug: "immune-boosting-superfoods",
       },
     ],
   },
@@ -1521,7 +1521,7 @@ export const blogPosts: BlogPost[] = [
   // ─── 12. Energy & Vitality ──────────────────────────────────────────────────
   {
     id: 12,
-    slug: "12",
+    slug: "energy-and-vitality-protocol",
     title: "Energy and Vitality Protocol",
     subtitle:
       "A sustainable daily system for natural energy — without stimulants, crashes, or dependency",
@@ -1636,19 +1636,19 @@ export const blogPosts: BlogPost[] = [
         id: 1,
         title: "Ashwagandha and the Science of Stress Reduction",
         category: "Wellness",
-        slug: "1",
+        slug: "ashwagandha-and-the-science-of-stress-reduction",
       },
       {
         id: 2,
         title: "Moringa Oleifera: The Most Nutrient-Dense Plant on Earth",
         category: "Superfoods",
-        slug: "2",
+        slug: "moringa-oleifera-the-most-nutrient-dense-plant-on-earth",
       },
       {
         id: 8,
         title: "Stress Management Through Herbal Protocols",
         category: "Wellness",
-        slug: "8",
+        slug: "stress-management-through-herbal-protocols",
       },
     ],
   },
@@ -1661,3 +1661,5 @@ export function getPostById(id: string): BlogPost | undefined {
 export function getAllPostIds(): string[] {
   return blogPosts.map((p) => p.slug);
 }
+
+export default blogPosts;

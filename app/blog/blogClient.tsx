@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
+import posts from "../data/blogs";
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface BlogPost {
   id: number;
@@ -18,142 +18,7 @@ interface BlogPost {
 }
 
 // ─── Data ────────────────────────────────────────────────────────────────────
-const posts: BlogPost[] = [
-  {
-    id: 1,
-    title: "Ashwagandha and the Science of Stress Reduction",
-    excerpt:
-      "Ashwagandha is one of the most researched adaptogenic herbs for stress support. Modern studies suggest it may help regulate cortisol, improve sleep quality and support resilience to everyday stress.",
-    category: "Wellness",
-    date: "March 15, 2026",
-    readTime: "9 min read",
-    image: "/images/01.jpg",
-    slug: "1",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Moringa Oleifera: The Most Nutrient-Dense Plant on Earth",
-    excerpt:
-      "Moringa leaves are rich in vitamins, minerals, and antioxidants. This superfood helps boost immunity, energy, and overall health naturally.",
-    category: "Superfoods",
-    date: "March 12, 2026",
-    readTime: "9 min read",
-    image: "/images/02.jpg",
-    slug: "2",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Hibiscus Tea Benefits for Heart Health",
-    excerpt:
-      "Hibiscus tea supports cardiovascular health and blood pressure regulation through its rich antioxidant profile and natural compounds.",
-    category: "Heart Health",
-    date: "March 10, 2026",
-    readTime: "8 min read",
-    image: "/images/04.jpg",
-    slug: "3",
-  },
-  {
-    id: 4,
-    title: "Aloe Vera for Digestive Wellness",
-    excerpt:
-      "Natural support for digestion and detoxification using the powerful compounds found in pure aloe vera.",
-    category: "Digestive Health",
-    date: "March 8, 2026",
-    readTime: "7 min read",
-    image: "/images/05.jpg",
-    slug: "4",
-  },
-  {
-    id: 5,
-    title: "Kombucha Probiotics Guide",
-    excerpt:
-      "Understanding gut health benefits of kombucha — the ancient fermented drink making a modern wellness comeback.",
-    category: "Gut Health",
-    date: "March 6, 2026",
-    readTime: "8 min read",
-    image: "/images/06.jpg",
-    slug: "5",
-  },
-  {
-    id: 6,
-    title: "Ndolwani: A Traditional African Sleep Remedy",
-    excerpt:
-      "Discover the rich heritage of Ndolwani, a traditional African herb used for generations to promote deep, restful sleep and relaxation.",
-    category: "Sleep",
-    date: "March 4, 2026",
-    readTime: "7 min read",
-    image: "/images/07.jpg",
-    slug: "6",
-  },
-  {
-    id: 7,
-    title: "Superfood Combinations for Daily Wellness",
-    excerpt:
-      "Optimal combinations of Moringa, Ashwagandha, and other superfoods for sustained energy and holistic health.",
-    category: "Superfoods",
-    date: "March 2, 2026",
-    readTime: "7 min read",
-    image: "/images/08.jpg",
-    slug: "7",
-  },
-  {
-    id: 8,
-    title: "Stress Management Through Herbal Protocols",
-    excerpt:
-      "Herbal strategies and daily protocols for building long-term stress resilience without pharmaceutical intervention.",
-    category: "Wellness",
-    date: "February 28, 2026",
-    readTime: "8 min read",
-    image: "/images/09.jpg",
-    slug: "8",
-  },
-  {
-    id: 9,
-    title: "Immune Boosting Superfoods",
-    excerpt:
-      "Nutrient-dense foods and plant-based supplements that support robust immune function throughout the year.",
-    category: "Health",
-    date: "February 25, 2026",
-    readTime: "7 min read",
-    image: "/images/10.jpg",
-    slug: "9",
-  },
-  {
-    id: 10,
-    title: "Digestive Health with Natural Remedies",
-    excerpt:
-      "Traditional and modern approaches to gut health — from ancient herbal wisdom to contemporary microbiome science.",
-    category: "Digestive Health",
-    date: "February 20, 2026",
-    readTime: "8 min read",
-    image: "/images/11.jpg",
-    slug: "10",
-  },
-  {
-    id: 11,
-    title: "Heart Health with Plant-Based Solutions",
-    excerpt:
-      "Plant compounds and lifestyle practices that support cardiovascular function and long-term heart wellness.",
-    category: "Heart Health",
-    date: "February 15, 2026",
-    readTime: "7 min read",
-    image: "/images/12.jpg",
-    slug: "11",
-  },
-  {
-    id: 12,
-    title: "Energy and Vitality Protocol",
-    excerpt:
-      "A daily protocol for sustained, natural energy — no stimulants, no crashes. Pure plant-based vitality.",
-    category: "Wellness",
-    date: "February 10, 2026",
-    readTime: "8 min read",
-    image: "/images/14.jpg",
-    slug: "12",
-  },
-];
+
 
 const CATEGORIES = [
   "All",

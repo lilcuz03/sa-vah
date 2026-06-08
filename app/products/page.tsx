@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import products from "../../lib/products";
+import ProductCard from "@/components/productCard";
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   title: "Natural Wellness Supplements | Sah Veh",
@@ -403,101 +404,7 @@ export default function ProductsPage() {
                 key={product.id}
                 className="group"
               >
-                <article className="h-full flex flex-col bg-white rounded-2xl overflow-hidden border border-[#ede5d8] transition-all duration-300 hover:shadow-[0_12px_40px_rgba(120,100,60,0.12)] hover:-translate-y-1">
-                  {/* Image */}
-                  <Link
-                    href={`/product/${product.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="relative block overflow-hidden aspect-[4/3] bg-[#f5efe6]"
-                    aria-label={`View ${product.name}`}
-                  >
-                    <Image
-                      src={product.image}
-                      alt={`${product.name} — ${product.tagline}`}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    {/* badge */}
-                    {product.badge && (
-                      <span
-                        className="absolute top-4 left-4 px-3 py-1 rounded-full text-[0.62rem] tracking-[0.15em] uppercase font-medium bg-[#2d2416] text-[#f5ede0]"
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}
-                      >
-                        {product.badge}
-                      </span>
-                    )}
-                    {/* benefit pill */}
-                    <span
-                      className="absolute bottom-4 right-4 px-3 py-1 rounded-full text-[0.62rem] tracking-[0.12em] uppercase bg-white/90 backdrop-blur-sm text-[#7a5c2e] border border-[#ede5d8]"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
-                    >
-                      {product.category}
-                    </span>
-                  </Link>
-
-                  {/* Content */}
-                  <div className="flex flex-col flex-1 p-6">
-                    <p
-                      className="text-[0.65rem] tracking-[0.25em] uppercase text-[#9c8060] mb-2"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
-                    >
-                      {product.tagline}
-                    </p>
-                    <Link
-                      href={`/product/${product.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    >
-                      <h3
-                        className="text-[1.25rem] leading-snug text-[#2d2416] mb-3 hover:text-[#7a5c2e] transition-colors"
-                        style={{
-                          fontFamily: "'Cormorant Garamond', serif",
-                          fontWeight: 600,
-                        }}
-                      >
-                        {product.name}
-                      </h3>
-                    </Link>
-                    <p
-                      className="text-[0.83rem] leading-relaxed text-[#7a6650] flex-1 mb-5"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
-                    >
-                      {product.benefits}
-                    </p>
-
-                    {/* Price & CTA */}
-                    <div className="flex items-center justify-between pt-4 border-t border-[#ede5d8]">
-                      <div>
-                        <p
-                          className="text-[0.65rem] tracking-[0.15em] uppercase text-[#9c8060]"
-                          style={{ fontFamily: "'DM Sans', sans-serif" }}
-                        >
-                          Price
-                        </p>
-                        <p
-                          className="text-[1.35rem] text-[#2d2416]"
-                          style={{
-                            fontFamily: "'Cormorant Garamond', serif",
-                            fontWeight: 600,
-                          }}
-                        >
-                          R{product.price.toFixed(2)}
-                        </p>
-                      </div>
-                      <a
-                        href={`https://wa.me/27827642367?text=Hi%2C%20I'm%20interested%20in%20${encodeURIComponent(product.name)}%20(R${product.price.toFixed(2)}).%20Is%20it%20available%3F`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Order ${product.name} on WhatsApp`}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-full text-[0.7rem] tracking-[0.15em] uppercase font-medium
-                          bg-[#2d2416] text-[#f5ede0] transition-all duration-300
-                          hover:bg-[#7a5c2e] hover:shadow-[0_4px_16px_rgba(122,92,46,0.3)]"
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}
-                      >
-                        <WhatsAppIcon />
-                        Order
-                      </a>
-                    </div>
-                  </div>
-                </article>
+                <ProductCard product={product} />
               </li>
             ))}
           </ul>

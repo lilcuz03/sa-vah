@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import React from "react";
 import HeroSlider from "@/components/swiper";
-import ProductCard from "@/components/product_card";
+import ProductCard from "@/components/productCard";
 import Link from "next/link";
 import Image from "next/image";
-import { products, getProductImage } from "../lib/products";
-import { blogs } from "@/app/data/blogs";
+import { products } from "@/lib/products";
+import blogs from "@/app/data/blogs";
 
 export const metadata: Metadata = {
-  title: "Natural Wellness, Simplified | Premium Plant-Based Supplements",
+  title: "Natural Wellness, Simplified | Sah Veh",
   description:
     "Shop premium organic plant-based supplements crafted to support energy, immunity, and everyday vitality. Pure ingredients, transparent sourcing, and science-backed formulas.",
   keywords: [
@@ -21,16 +21,16 @@ export const metadata: Metadata = {
     "South Africa supplements",
   ],
   openGraph: {
-    title: "Natural Wellness, Simplified",
+    title: "Natural Wellness, Simplified | Sah Veh",
     description:
       "Premium plant-based supplements crafted to support energy, immunity, and everyday vitality — made with pure organic ingredients.",
     type: "website",
     locale: "en_ZA",
-    siteName: "Your Wellness Brand",
+    siteName: "Sah Veh",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Natural Wellness, Simplified",
+    title: "Natural Wellness, Simplified | Sah Veh",
     description:
       "Premium plant-based supplements crafted to support energy, immunity, and everyday vitality.",
   },
@@ -64,18 +64,12 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 const Home = () => {
   return (
     <>
-      {/*
-        ─── GLOBAL FONT IMPORTS ───────────────────────────────────────────
-        Add to your layout.tsx or globals.css instead if you prefer:
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap');
-      */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap');
 
         .font-cormorant { font-family: 'Cormorant Garamond', serif; }
         .font-dm        { font-family: 'DM Sans', sans-serif; }
 
-        /* Grain overlay — one sitewide texture layer */
         .grain::before {
           content: '';
           position: fixed;
@@ -87,7 +81,6 @@ const Home = () => {
           background-size: 256px 256px;
         }
 
-        /* Scroll-reveal fade-up animation */
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(28px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -98,11 +91,6 @@ const Home = () => {
         .reveal-d3 { animation-delay: 0.34s; opacity: 0; }
         .reveal-d4 { animation-delay: 0.46s; opacity: 0; }
 
-        /* Product card hover overlay */
-        .product-card:hover .card-overlay { opacity: 1; }
-        .card-overlay { opacity: 0; transition: opacity 0.35s ease; }
-
-        /* Underline link animation */
         .link-underline {
           background-image: linear-gradient(currentColor, currentColor);
           background-size: 0% 1px;
@@ -141,39 +129,28 @@ const Home = () => {
           className="relative min-h-screen overflow-hidden"
           aria-label="Hero"
         >
-          {/* Slider sits behind everything */}
           <div className="absolute inset-0">
             <HeroSlider />
           </div>
-
-          {/* Dark gradient scrim */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0d1f0d]/75 via-[#0d1f0d]/50 to-[#0d1f0d]/80" />
 
-          {/* Hero content */}
           <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-8 pb-16">
-            {/* Eyebrow */}
             <p className="reveal reveal-d1 font-dm text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-[#b8975a] mb-8 font-medium">
               Organic · Plant-Based · South Africa
             </p>
-
-            {/* Main headline */}
             <h1 className="reveal reveal-d2 font-cormorant text-[clamp(3rem,10vw,8rem)] font-bold text-[#f7f3ec] leading-[0.95] mb-6 max-w-5xl">
               Natural Wellness,{" "}
               <em
-                className="italic text-[#b8975a] not-italic"
+                className="italic text-[#b8975a]"
                 style={{ fontStyle: "italic" }}
               >
                 Simplified
               </em>
             </h1>
-
-            {/* Sub-copy */}
             <p className="reveal reveal-d3 font-dm font-light text-[#f7f3ec]/70 max-w-md text-base sm:text-lg leading-relaxed mb-12">
               Premium plant-based supplements crafted to support energy,
               immunity, and everyday vitality.
             </p>
-
-            {/* CTAs */}
             <div className="reveal reveal-d4 flex flex-wrap gap-4 justify-center">
               <Link
                 href="/products"
@@ -190,7 +167,6 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Scroll indicator */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-50">
             <span className="font-dm text-[10px] tracking-[0.2em] uppercase text-[#f7f3ec]">
               Scroll
@@ -247,7 +223,6 @@ const Home = () => {
           className="py-24 sm:py-32 px-4 sm:px-8"
         >
           <div className="max-w-7xl mx-auto">
-            {/* Header row */}
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-16">
               <div>
                 <SectionLabel>Our Range</SectionLabel>
@@ -263,7 +238,7 @@ const Home = () => {
               </Link>
             </div>
 
-            {/* Cards */}
+            {/* FIX: products typed as Product[] from lib/products — matches ProductCard's import */}
             <ul
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
               role="list"
@@ -273,102 +248,7 @@ const Home = () => {
                   key={product.id}
                   className="group"
                 >
-                  <article className="h-full flex flex-col bg-white rounded-2xl overflow-hidden border border-[#ede5d8] transition-all duration-300 hover:shadow-[0_12px_40px_rgba(120,100,60,0.12)] hover:-translate-y-1">
-                    {/* Image */}
-                    <Link
-                      href={`/product/${product.name.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="relative block overflow-hidden aspect-[4/3] bg-[#f5efe6]"
-                      aria-label={`View ${product.name}`}
-                    >
-                      <Image
-                        src={product.image}
-                        alt={`${product.name} — ${product.tagline}`}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      {/* badge */}
-                      {product.badge && (
-                        <span
-                          className="absolute top-4 left-4 px-3 py-1 rounded-full text-[0.62rem] tracking-[0.15em] uppercase font-medium bg-[#2d2416] text-[#f5ede0]"
-                          style={{ fontFamily: "'DM Sans', sans-serif" }}
-                        >
-                          {product.badge}
-                        </span>
-                      )}
-                      {/* benefit pill */}
-                      <span
-                        className="absolute bottom-4 right-4 px-3 py-1 rounded-full text-[0.62rem] tracking-[0.12em] uppercase bg-white/90 backdrop-blur-sm text-[#7a5c2e] border border-[#ede5d8]"
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}
-                      >
-                        {product.category}
-                      </span>
-                    </Link>
-
-                    {/* Content */}
-                    <div className="flex flex-col flex-1 p-6">
-                      <p
-                        className="text-[0.65rem] tracking-[0.25em] uppercase text-[#9c8060] mb-2"
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}
-                      >
-                        {product.tagline}
-                      </p>
-                      <Link
-                        href={`/product/${product.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        className="hover:underline"
-                      >
-                        <h3
-                          className="text-[1.25rem] leading-snug text-[#2d2416] mb-3 hover:text-[#7a5c2e] transition-colors"
-                          style={{
-                            fontFamily: "'Cormorant Garamond', serif",
-                            fontWeight: 600,
-                          }}
-                        >
-                          {product.name}
-                        </h3>
-                      </Link>
-                      <p
-                        className="text-[0.83rem] leading-relaxed text-[#7a6650] flex-1 mb-5"
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}
-                      >
-                        {product.benefits}
-                      </p>
-
-                      {/* Price & CTA */}
-                      <div className="flex items-center justify-between pt-4 border-t border-[#ede5d8]">
-                        <div>
-                          <p
-                            className="text-[0.65rem] tracking-[0.15em] uppercase text-[#9c8060]"
-                            style={{ fontFamily: "'DM Sans', sans-serif" }}
-                          >
-                            Price
-                          </p>
-                          <p
-                            className="text-[1.35rem] text-[#2d2416]"
-                            style={{
-                              fontFamily: "'Cormorant Garamond', serif",
-                              fontWeight: 600,
-                            }}
-                          >
-                            R{product.price.toFixed(2)}
-                          </p>
-                        </div>
-                        <a
-                          href={`https://wa.me/27827642367?text=Hi%2C%20I'm%20interested%20in%20${encodeURIComponent(product.name)}%20(R${product.price.toFixed(2)}).%20Is%20it%20available%3F`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Order ${product.name} on WhatsApp`}
-                          className="flex items-center gap-2 px-5 py-2.5 rounded-full text-[0.7rem] tracking-[0.15em] uppercase font-medium
-                          bg-[#2d2416] text-[#f5ede0] transition-all duration-300
-                          hover:bg-[#7a5c2e] hover:shadow-[0_4px_16px_rgba(122,92,46,0.3)]"
-                          style={{ fontFamily: "'DM Sans', sans-serif" }}
-                        >
-                          <WhatsAppIcon />
-                          Order
-                        </a>
-                      </div>
-                    </div>
-                  </article>
+                  <ProductCard product={product} />
                 </li>
               ))}
             </ul>
@@ -380,14 +260,12 @@ const Home = () => {
           aria-label="Brand statement"
           className="relative overflow-hidden bg-[#1a2e1a] py-24 sm:py-36 px-4 sm:px-8"
         >
-          {/* Large decorative numeral */}
           <span
             aria-hidden="true"
             className="absolute -right-6 top-1/2 -translate-y-1/2 font-cormorant text-[20rem] font-bold text-white/[0.03] leading-none select-none pointer-events-none"
           >
             W
           </span>
-
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <p className="font-dm text-[10px] tracking-[0.3em] uppercase text-[#b8975a] mb-8">
               Our Philosophy
@@ -399,7 +277,7 @@ const Home = () => {
             </blockquote>
             <div className="w-12 h-px bg-[#b8975a] mx-auto mb-6" />
             <p className="font-dm text-sm text-[#8aab8a] tracking-widest uppercase">
-              Founder, Your Wellness Brand
+              Founder, Sah Veh
             </p>
           </div>
         </section>
@@ -417,7 +295,6 @@ const Home = () => {
                 <em className="italic text-[#8aab8a]">matter</em>
               </SectionHeading>
             </div>
-
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               {[
                 {
@@ -485,7 +362,6 @@ const Home = () => {
                   key={blog.id}
                   className="group bg-white rounded-2xl overflow-hidden border border-[#e8e0d0] hover:border-[#b8975a]/40 hover:shadow-xl hover:shadow-[#1a2e1a]/8 transition-all duration-300"
                 >
-                  {/* Image */}
                   <div className="relative h-52 overflow-hidden bg-[#f0ebe0]">
                     <Image
                       src={blog.image}
@@ -495,11 +371,8 @@ const Home = () => {
                       className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                    {/* Tinted overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/40 via-transparent to-transparent" />
                   </div>
-
-                  {/* Body */}
                   <div className="p-7">
                     <p className="font-dm text-[10px] tracking-[0.2em] uppercase text-[#b8975a] mb-3 font-medium">
                       {blog.date} · {blog.readTime}
@@ -524,7 +397,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* ── NEWSLETTER (re-enabled, premium version) ─────────── */}
+        {/* ── NEWSLETTER ───────────────────────────────────────── */}
         <section
           aria-label="Newsletter signup"
           className="py-24 sm:py-32 px-4 sm:px-8 bg-[#1a2e1a]"
@@ -538,7 +411,6 @@ const Home = () => {
               Receive exclusive formulas, seasonal wellness guides, and early
               access to new products — delivered to your inbox.
             </p>
-
             <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
@@ -564,17 +436,3 @@ const Home = () => {
 };
 
 export default Home;
-
-function WhatsAppIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-    </svg>
-  );
-}
