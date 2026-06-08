@@ -10,12 +10,12 @@ const navLinks = [
 ];
 
 const products = [
-  { label: "Aloe Colon Cleanse", href: "/product/1" },
-  { label: "Ashwagandha", href: "/product/2" },
-  { label: "Hibiscus Tea", href: "/product/3" },
-  { label: "Kombucha Gummies", href: "/product/4" },
-  { label: "Moringa Raw & Organic", href: "/product/5" },
-  { label: "Ndolwani Gummies", href: "/product/6" },
+  { label: "Aloe Colon Cleanse", href: "/product/aloe-colon-cleanse-granules" },
+  { label: "Ashwagandha", href: "/product/ashwagandha" },
+  { label: "Hibiscus Tea", href: "/product/hibiscus_tea" },
+  { label: "Kombucha Gummies", href: "/product/kombucha_gummies" },
+  { label: "Moringa Raw & Organic", href: "/product/moringa-raw-organic" },
+  { label: "Ndolwani Gummies", href: "/product/ndolwani-gummies" },
 ];
 
 const socials = [
